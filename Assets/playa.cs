@@ -8,6 +8,14 @@ public class playa : MonoBehaviour
 
     private GameObject player;
     private Rigidbody rig;
+    private bool grounded = true;
+
+    // for rotation
+    private bool rotating = false;
+    private Quaternion targetRot;
+    private Quaternion startRot;
+    private float rotSpeed = 2f;
+    private float timeCount = 0.0f;
 
     void Awake()
     {
@@ -21,20 +29,44 @@ public class playa : MonoBehaviour
         Debug.Log("script is attached to: " + player.name);
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            grounded = true;
+        }
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            grounded = false;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        float zrot = player.transform.eulerAngles.z;
-        Debug.Log(zrot);
+        float zrot = transform.eulerAngles.z;
 
-        if (Input.GetKey(KeyCode.D) && (zrot < 70 || zrot > 290))
+        if (Input.GetKey(KeyCode.D) && !rotating)
         {
-            player.transform.Rotate(new Vector3(0, 0, -0.5f));
+            rotating = true;
+            targetRot = Quaternion.Euler(0, 0, 290);
+            startRot = transform.rotation;
         }
 
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.D) && rotating)
         {
-            rig.AddForce(new Vector3(0, 500, 0));
+            rotating = false;
+            rig.AddForce(250 * transform.up); // figured this out myself!!
+        }
+
+        // handle rotation
+        if (rotating)
+        {
+            transform.rotation = Quaternion.Lerp(startRot, targetRot, timeCount * rotSpeed);
+            timeCount = timeCount + Time.deltaTime;
         }
     }
 }
