@@ -7,9 +7,10 @@ public class playa : MonoBehaviour
 {
 
     private GameObject player;
-    public Rigidbody rig;
+    private Rigidbody rig;
     private bool grounded = true;
     private bool inputting = false;
+    public float jumpForce = 20000;
 
     // for rotation
     private Quaternion targetRot;
@@ -31,6 +32,7 @@ public class playa : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "ground")
         {
             grounded = true;
@@ -47,6 +49,11 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if (grounded)
+        // {
+        //     Debug.Log("grounded");
+        // }
+
         if (Input.GetKey(KeyCode.D) && !inputting)
         {
             rotating = true;
@@ -71,7 +78,7 @@ public class playa : MonoBehaviour
             inputting = false;
             if (grounded)
             {
-                rig.AddForce(transform.up * 350); // figured this out myself!!
+                rig.AddForce(transform.up * jumpForce); // figured this out myself!!
             }
         }
         if (Input.GetKeyUp(KeyCode.A))
@@ -80,7 +87,7 @@ public class playa : MonoBehaviour
             inputting = false;
             if (grounded)
             {
-                rig.AddForce(transform.up * 350); // figured this out myself!!
+                rig.AddForce(transform.up * jumpForce); // figured this out myself!!
             }
         }
 
