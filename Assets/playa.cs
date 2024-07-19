@@ -7,26 +7,26 @@ public class playa : MonoBehaviour
 {
 
     private GameObject player;
-    private Rigidbody rig;
+    public Rigidbody rig;
     private bool grounded = true;
+    private bool inputting = false;
 
     // for rotation
-    private bool rotating = false;
     private Quaternion targetRot;
     private Quaternion startRot;
-    private float rotSpeed = 2f;
+    public float rotSpeed = 4f;
     private float timeCount = 0.0f;
+    private bool rotating = false;
 
     void Awake()
     {
         player = this.gameObject;
-        rig = this.gameObject.GetComponent<Rigidbody>();
+        rig = player.GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("script is attached to: " + player.name);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -47,24 +47,54 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float zrot = transform.eulerAngles.z;
-
-        if (Input.GetKey(KeyCode.D) && !rotating)
+        if (Input.GetKey(KeyCode.D) && !inputting)
         {
             rotating = true;
+            inputting = true;
+            timeCount = 0.0f;
             targetRot = Quaternion.Euler(0, 0, 290);
             startRot = transform.rotation;
         }
 
-        if (Input.GetKeyUp(KeyCode.D) && rotating)
+        if (Input.GetKey(KeyCode.A) && !inputting)
         {
-            rotating = false;
-            rig.AddForce(250 * transform.up); // figured this out myself!!
+            rotating = true;
+            inputting = true;
+            timeCount = 0.0f;
+            targetRot = Quaternion.Euler(0, 0, 70);
+            startRot = transform.rotation;
         }
 
-        // handle rotation
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            rotating = false;
+            inputting = false;
+            if (grounded)
+            {
+                rig.AddForce(transform.up * 350); // figured this out myself!!
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            rotating = false;
+            inputting = false;
+            if (grounded)
+            {
+                rig.AddForce(transform.up * 350); // figured this out myself!!
+            }
+        }
+
+        if (!inputting && !rotating)
+        {
+            rotating = true;
+            timeCount = 0.0f;
+            targetRot = Quaternion.Euler(0, 0, 0);
+            startRot = transform.rotation;
+        }
+
         if (rotating)
         {
+            // handle rotation
             transform.rotation = Quaternion.Lerp(startRot, targetRot, timeCount * rotSpeed);
             timeCount = timeCount + Time.deltaTime;
         }
