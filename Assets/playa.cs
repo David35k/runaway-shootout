@@ -30,6 +30,7 @@ public class playa : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             grounded = true;
+            rb.angularDrag = lowAngularDrag;
         }
     }
     void OnCollisionExit(Collision collision)
@@ -37,43 +38,54 @@ public class playa : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             grounded = false;
+            rb.angularDrag = highAngularDrag;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         float zrot = transform.rotation.eulerAngles.z;
+        handleInput(zrot);
 
-        if (grounded)
+
+
+    }
+
+    void handleInput(float zrot)
+    {
+        if (Input.GetKey(KeyCode.W))
         {
-            rb.angularDrag = lowAngularDrag;
+            if (grounded && (zrot > 290 || zrot < 70))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
         }
-        else
+
+        if (Input.GetKey(KeyCode.Q))
         {
-            rb.angularDrag = highAngularDrag;
+            if (grounded && (zrot > 290 || zrot < 70))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
         }
 
-
-        if (Input.GetKey(KeyCode.D) && (zrot > 290 || zrot < 70))
-        {
-            rb.AddTorque(Vector3.forward * rotationTorque * -1);
-        }
-
-        if (Input.GetKey(KeyCode.A) && (zrot > 290 || zrot < 70))
-        {
-            rb.AddTorque(Vector3.forward * rotationTorque);
-        }
-
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             if (grounded)
             {
                 rb.AddForce(transform.up * jumpForce); // figured this out myself!!
             }
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.Q))
         {
             if (grounded)
             {
