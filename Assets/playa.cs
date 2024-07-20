@@ -7,22 +7,17 @@ public class playa : MonoBehaviour
 {
 
     private GameObject player;
-    private Rigidbody rig;
+    private Rigidbody rb;
     private bool grounded = true;
-    private bool inputting = false;
-    public float jumpForce = 20000;
-
-    // for rotation
-    private Quaternion targetRot;
-    private Quaternion startRot;
-    public float rotSpeed = 4f;
-    private float timeCount = 0.0f;
-    private bool rotating = false;
+    public float jumpForce = 300f;
+    public float rotationTorque = 0.01f;
+    public float lowAngularDrag = 0.4f;
+    public float highAngularDrag = 10f;
 
     void Awake()
     {
         player = this.gameObject;
-        rig = player.GetComponent<Rigidbody>();
+        rb = player.GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
@@ -30,9 +25,8 @@ public class playa : MonoBehaviour
     {
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "ground")
         {
             grounded = true;
@@ -49,61 +43,43 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (grounded)
-        // {
-        //     Debug.Log("grounded");
-        // }
 
-        if (Input.GetKey(KeyCode.D) && !inputting)
+        float zrot = transform.rotation.eulerAngles.z;
+
+        if (grounded)
         {
-            rotating = true;
-            inputting = true;
-            timeCount = 0.0f;
-            targetRot = Quaternion.Euler(0, 0, 290);
-            startRot = transform.rotation;
+            rb.angularDrag = lowAngularDrag;
+        }
+        else
+        {
+            rb.angularDrag = highAngularDrag;
         }
 
-        if (Input.GetKey(KeyCode.A) && !inputting)
+
+        if (Input.GetKey(KeyCode.D) && (zrot > 290 || zrot < 70))
         {
-            rotating = true;
-            inputting = true;
-            timeCount = 0.0f;
-            targetRot = Quaternion.Euler(0, 0, 70);
-            startRot = transform.rotation;
+            rb.AddTorque(Vector3.forward * rotationTorque * -1);
+        }
+
+        if (Input.GetKey(KeyCode.A) && (zrot > 290 || zrot < 70))
+        {
+            rb.AddTorque(Vector3.forward * rotationTorque);
         }
 
         if (Input.GetKeyUp(KeyCode.D))
         {
-            rotating = false;
-            inputting = false;
             if (grounded)
             {
-                rig.AddForce(transform.up * jumpForce); // figured this out myself!!
+                rb.AddForce(transform.up * jumpForce); // figured this out myself!!
             }
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            rotating = false;
-            inputting = false;
             if (grounded)
             {
-                rig.AddForce(transform.up * jumpForce); // figured this out myself!!
+                rb.AddForce(transform.up * jumpForce); // figured this out myself!!
             }
         }
 
-        if (!inputting && !rotating)
-        {
-            rotating = true;
-            timeCount = 0.0f;
-            targetRot = Quaternion.Euler(0, 0, 0);
-            startRot = transform.rotation;
-        }
-
-        if (rotating)
-        {
-            // handle rotation
-            transform.rotation = Quaternion.Lerp(startRot, targetRot, timeCount * rotSpeed);
-            timeCount = timeCount + Time.deltaTime;
-        }
     }
 }
