@@ -8,6 +8,7 @@ public class gun : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject bulletSpawn;
     public float bulletSpeed = 10f;
+    public bool equipped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && equipped)
         {
             shoot();
         }

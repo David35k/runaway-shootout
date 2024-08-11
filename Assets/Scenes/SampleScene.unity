@@ -259,9 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174ba2d7573aeec489d812b2311d95a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pistol: {fileID: 4076597938311034799, guid: ad01fbd86a3318848bdec6f4907fbb22, type: 3}
+  gun: {fileID: 4076597938311034799, guid: ad01fbd86a3318848bdec6f4907fbb22, type: 3}
   itemPoint: {fileID: 1285995545}
   gunSlot: {fileID: 1789899454}
+  noGun: 0
 --- !u!136 &116201080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -279,7 +280,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 1
@@ -1136,7 +1137,7 @@ Transform:
   m_GameObject: {fileID: 1789899454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.732, y: 0.672, z: 0.211}
+  m_LocalPosition: {x: 0.593, y: 0.725, z: -0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   rotationTorque: 1.5
   lowAngularDrag: 0.4
   highAngularDrag: 4
+  gunSpawn: {fileID: 1789899454}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class playa : MonoBehaviour
     public float rotationTorque = 0.01f;
     public float lowAngularDrag = 0.4f;
     public float highAngularDrag = 10f;
+    public GameObject gunSpawn;
 
     void Awake()
     {
@@ -40,6 +41,13 @@ public class playa : MonoBehaviour
             grounded = false;
             rb.angularDrag = highAngularDrag;
         }
+    }
+
+    public void getGun(GameObject gun)
+    {
+        Debug.Log("OHIO");
+        GameObject ohio = Instantiate(gun, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+        ohio.GetComponent<gun>().equipped = true;
     }
 
     // Update is called once per frame
