@@ -80,7 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5431365635955119874, guid: b2b457c996c94a04c83f6b9a00021f71, type: 3}
   bulletSpawn: {fileID: 3722464148948563376}
-  bulletSpeed: 50
+  bulletSpeed: 25
+  equipped: 0
 --- !u!1 &4227412242457926131
 GameObject:
   m_ObjectHideFlags: 0

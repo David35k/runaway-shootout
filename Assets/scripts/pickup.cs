@@ -17,12 +17,12 @@ public class pickup : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("OHIOOIHOHIOHII " + collision.gameObject.tag);
-        if (collision.gameObject.tag == "Player" && !noGun)
+        Debug.Log("OHIOOIHOHIOHII " + collider.gameObject.tag);
+        if (collider.gameObject.tag == "Player" && !noGun)
         {
-            collision.gameObject.GetComponent<playa>().getGun(gun);
+            collider.gameObject.GetComponent<playa>().getGun(gun);
             noGun = true;
         }
     }

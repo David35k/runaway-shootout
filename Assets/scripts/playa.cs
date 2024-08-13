@@ -14,6 +14,7 @@ public class playa : MonoBehaviour
     public float lowAngularDrag = 0.4f;
     public float highAngularDrag = 10f;
     public GameObject gunSpawn;
+    public int playaNumber;
 
     void Awake()
     {
@@ -28,7 +29,7 @@ public class playa : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "bullet")
         {
             grounded = true;
             rb.angularDrag = lowAngularDrag;
@@ -36,7 +37,7 @@ public class playa : MonoBehaviour
     }
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "bullet")
         {
             grounded = false;
             rb.angularDrag = highAngularDrag;
@@ -55,14 +56,12 @@ public class playa : MonoBehaviour
     {
         float zrot = transform.rotation.eulerAngles.z;
         handleInput(zrot);
-
-
-
     }
 
     void handleInput(float zrot)
     {
-        if (Input.GetKey(KeyCode.W))
+        // PLAYER 1
+        if (Input.GetKey(KeyCode.W) && playaNumber == 1)
         {
             if (grounded && (zrot > 290 || zrot < 70))
             {
@@ -74,7 +73,7 @@ public class playa : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && playaNumber == 1)
         {
             if (grounded && (zrot > 290 || zrot < 70))
             {
@@ -86,18 +85,58 @@ public class playa : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.W))
+        if (Input.GetKeyUp(KeyCode.W) && playaNumber == 1)
         {
             if (grounded)
             {
-                rb.AddForce(transform.up * jumpForce); // figured this out myself!!
+                rb.AddForce(transform.up * jumpForce);
             }
         }
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Q) && playaNumber == 1)
         {
             if (grounded)
             {
-                rb.AddForce(transform.up * jumpForce); // figured this out myself!!
+                rb.AddForce(transform.up * jumpForce);
+            }
+        }
+
+        // PLAYER 2
+        if (Input.GetKey(KeyCode.O) && playaNumber == 2)
+        {
+            if (grounded && (zrot > 290 || zrot < 70))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+        }
+
+        if (Input.GetKey(KeyCode.I) && playaNumber == 2)
+        {
+            if (grounded && (zrot > 290 || zrot < 70))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.O) && playaNumber == 2)
+        {
+            if (grounded)
+            {
+                rb.AddForce(transform.up * jumpForce);
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.I) && playaNumber == 2)
+        {
+            if (grounded)
+            {
+                rb.AddForce(transform.up * jumpForce);
             }
         }
 
