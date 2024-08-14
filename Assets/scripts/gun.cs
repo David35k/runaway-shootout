@@ -9,6 +9,7 @@ public class gun : MonoBehaviour
     public GameObject bulletSpawn;
     public float bulletSpeed = 10f;
     public bool equipped = false;
+    public float playaNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,11 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && equipped)
+        if (Input.GetKeyDown(KeyCode.E) && equipped && playaNumber == 1)
+        {
+            shoot();
+        }
+        if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2)
         {
             shoot();
         }

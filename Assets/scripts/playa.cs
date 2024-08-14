@@ -15,6 +15,7 @@ public class playa : MonoBehaviour
     public float highAngularDrag = 10f;
     public GameObject gunSpawn;
     public int playaNumber;
+    private GameObject gun;
 
     void Awake()
     {
@@ -27,17 +28,17 @@ public class playa : MonoBehaviour
     {
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "bullet")
+        if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "player")
         {
             grounded = true;
             rb.angularDrag = lowAngularDrag;
         }
     }
-    void OnCollisionExit(Collision collision)
+    void OnTriggerExit(Collider collider)
     {
-        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "bullet")
+        if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "player")
         {
             grounded = false;
             rb.angularDrag = highAngularDrag;
@@ -46,9 +47,9 @@ public class playa : MonoBehaviour
 
     public void getGun(GameObject gun)
     {
-        Debug.Log("OHIO");
-        GameObject ohio = Instantiate(gun, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
-        ohio.GetComponent<gun>().equipped = true;
+        gun = Instantiate(gun, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+        gun.GetComponent<gun>().equipped = true;
+        gun.GetComponent<gun>().playaNumber = playaNumber;
     }
 
     // Update is called once per frame
