@@ -10,6 +10,8 @@ public class gun : MonoBehaviour
     public float bulletSpeed = 10f;
     public bool equipped = false;
     public float playaNumber;
+    public float xOffset = 0f;
+    public float yOffset = 0f;
 
     // Start is called before the first frame update
     void Start()

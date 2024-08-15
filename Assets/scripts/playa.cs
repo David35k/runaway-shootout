@@ -17,6 +17,7 @@ public class playa : MonoBehaviour
     public int playaNumber;
     private GameObject gun;
 
+
     void Awake()
     {
         player = this.gameObject;
@@ -28,26 +29,34 @@ public class playa : MonoBehaviour
     {
     }
 
-    void OnTriggerEnter(Collider collider)
+    // the trigger is the floor detection, the actual hitbox is handled with OnCollision
+    void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "player")
+        if (collider == GetComponent<Collider>())
         {
-            grounded = true;
-            rb.angularDrag = lowAngularDrag;
+            if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "playa hitbox")
+            {
+                grounded = true;
+                rb.angularDrag = lowAngularDrag;
+            }
         }
+
     }
     void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "player")
+        if (collider == GetComponent<Collider>())
         {
-            grounded = false;
-            rb.angularDrag = highAngularDrag;
+            if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "playa hitbox")
+            {
+                grounded = false;
+                rb.angularDrag = highAngularDrag;
+            }
         }
     }
 
     public void getGun(GameObject gun)
     {
-        gun = Instantiate(gun, gunSpawn.transform.position, gunSpawn.transform.rotation, gunSpawn.transform);
+        gun = Instantiate(gun, gunSpawn.transform.position + new Vector3(gun.GetComponent<gun>().xOffset, gun.GetComponent<gun>().yOffset), gunSpawn.transform.rotation, gunSpawn.transform);
         gun.GetComponent<gun>().equipped = true;
         gun.GetComponent<gun>().playaNumber = playaNumber;
     }

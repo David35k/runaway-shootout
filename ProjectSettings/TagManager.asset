@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - bullet
+  - playa hitbox
   layers:
   - Default
   - TransparentFX
