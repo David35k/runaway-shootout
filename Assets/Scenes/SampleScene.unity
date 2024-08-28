@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 17325194}
   - component: {fileID: 17325193}
   - component: {fileID: 17325192}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 322031944}
   - component: {fileID: 322031943}
   - component: {fileID: 322031942}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ground
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 390488692}
   - component: {fileID: 390488691}
   - component: {fileID: 390488690}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486449026}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &486449029
 Camera:
   m_ObjectHideFlags: 0
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 1104120079}
   - component: {fileID: 1104120078}
   - component: {fileID: 1104120077}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -1081,6 +1081,10 @@ PrefabInstance:
       propertyPath: playaNumber
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: groundDetectDist
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6891425367644154236, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1129,6 +1133,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7807787543357844136, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: targets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807787543357844136, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: targets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1820780627}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1266,6 +1278,18 @@ PrefabInstance:
     - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: playaNumber
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: rotationTorque
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: raycastDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: groundDetectDist
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7776745134759915636, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,15 +12,9 @@ public class arm : MonoBehaviour
     private GameObject currentTarget;
     private bool tracking = false;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     void OnTriggerStay(Collider collider)
     {
+        Debug.Log(collider.gameObject.name);
         if (targets.Contains(collider.gameObject))
         {
             currentTarget = collider.gameObject;
@@ -42,7 +36,7 @@ public class arm : MonoBehaviour
     {
         if (tracking)
         {
-            this.gameObject.transform.LookAt(currentTarget.transform);
+            gameObject.transform.LookAt(currentTarget.transform);
         }
     }
 }

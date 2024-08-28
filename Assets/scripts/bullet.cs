@@ -7,6 +7,7 @@ public class bullet : MonoBehaviour
 {
 
     public float bulletLifetime = 5.0f;
+    public int playaFired;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,16 @@ public class bullet : MonoBehaviour
 
     void Awake()
     {
-        Destroy(this.gameObject, bulletLifetime);
+        Destroy(gameObject, bulletLifetime);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "ground" || collision.gameObject.tag == "playa hitbox")
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     // Update is called once per frame

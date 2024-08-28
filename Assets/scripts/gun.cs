@@ -9,7 +9,7 @@ public class gun : MonoBehaviour
     public GameObject bulletSpawn;
     public float bulletSpeed = 10f;
     public bool equipped = false;
-    public float playaNumber;
+    public int playaNumber;
     public float xOffset = 0f;
     public float yOffset = 0f;
 
@@ -38,6 +38,7 @@ public class gun : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            bullet.GetComponent<bullet>().playaFired = playaNumber;
             if (rb)
             {
                 rb.velocity = bulletSpawn.transform.up * bulletSpeed; // Adjust direction based on your setup

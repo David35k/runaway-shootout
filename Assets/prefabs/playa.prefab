@@ -305,11 +305,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 477.5
-  rotationTorque: 1.65
-  lowAngularDrag: 0.4
+  rotationTorque: 1.7
+  lowAngularDrag: 0.2
   highAngularDrag: 3.9
   gunSpawn: {fileID: 530206011022914128}
   playaNumber: 0
+  groundDetectDist: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &5275751032571668888
 GameObject:
   m_ObjectHideFlags: 0

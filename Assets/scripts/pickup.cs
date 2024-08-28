@@ -21,7 +21,7 @@ public class pickup : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("OHIOOIHOHIOHII " + collider.gameObject.tag);
+        // Debug.Log("OHIOOIHOHIOHII " + collider.gameObject.tag);
         if (collider.gameObject.tag == "Player" && !gunPicked)
         {
             collider.gameObject.GetComponent<playa>().getGun(gunChoice);
@@ -49,7 +49,6 @@ public class pickup : MonoBehaviour
         {
             gun.transform.position = new Vector3(gun.transform.position.x, startingY + 0.5f * (float)Math.Sin(Time.fixedTime));
             gun.transform.Rotate(0, 45f * Time.deltaTime, 0);
-            Debug.Log(gun.transform.rotation.y);
         }
     }
 }

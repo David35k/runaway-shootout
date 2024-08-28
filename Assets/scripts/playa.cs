@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class playa : MonoBehaviour
 {
-
-    private GameObject player;
     private Rigidbody rb;
-    private bool grounded = true;
+    private bool grounded = false;
     public float jumpForce = 300f;
     public float rotationTorque = 0.01f;
     public float lowAngularDrag = 0.4f;
@@ -16,56 +17,53 @@ public class playa : MonoBehaviour
     public GameObject gunSpawn;
     public int playaNumber;
     private GameObject gun;
-
+    public float groundDetectDist = 0.5f;
+    public LayerMask groundLayer;
+    public LayerMask playerLayer;
 
     void Awake()
     {
-        player = this.gameObject;
-        rb = player.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void OnDrawGizmos()
     {
-    }
-
-    // the trigger is the floor detection, the actual hitbox is handled with OnCollision
-    void OnTriggerStay(Collider collider)
-    {
-        if (collider == GetComponent<Collider>())
-        {
-            if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "playa hitbox")
-            {
-                grounded = true;
-                rb.angularDrag = lowAngularDrag;
-            }
-        }
-
-    }
-    void OnTriggerExit(Collider collider)
-    {
-        if (collider == GetComponent<Collider>())
-        {
-            if (collider.gameObject.tag == "ground" || collider.gameObject.tag == "bullet" || collider.gameObject.tag == "playa hitbox")
-            {
-                grounded = false;
-                rb.angularDrag = highAngularDrag;
-            }
-        }
-    }
-
-    public void getGun(GameObject gun)
-    {
-        gun = Instantiate(gun, gunSpawn.transform.position + new Vector3(gun.GetComponent<gun>().xOffset, gun.GetComponent<gun>().yOffset), gunSpawn.transform.rotation, gunSpawn.transform);
-        gun.GetComponent<gun>().equipped = true;
-        gun.GetComponent<gun>().playaNumber = playaNumber;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, groundDetectDist);
     }
 
     // Update is called once per frame
     void Update()
     {
         float zrot = transform.rotation.eulerAngles.z;
+        handleGround();
         handleInput(zrot);
+    }
+
+    public void getGun(GameObject schlong)
+    {
+        gun = Instantiate(schlong, gunSpawn.transform.position + new Vector3(gun.GetComponent<gun>().xOffset, gun.GetComponent<gun>().yOffset), gunSpawn.transform.rotation, gunSpawn.transform);
+        gun.GetComponent<gun>().equipped = true;
+        gun.GetComponent<gun>().playaNumber = playaNumber;
+    }
+
+    void handleGround()
+    {
+        grounded = false;
+        Collider[] cols = Physics.OverlapSphere(transform.position, groundDetectDist);
+        foreach (Collider col in cols)
+        {
+            if (col.gameObject.tag == "ground" || col.gameObject.tag == "bullet" || (col.gameObject.name == "render for playa" && !col.gameObject.transform.IsChildOf(transform)))
+            {
+                grounded = true;
+                rb.angularDrag = lowAngularDrag;
+            }
+        }
+
+        if (!grounded)
+        {
+            rb.angularDrag = highAngularDrag;
+        }
     }
 
     void handleInput(float zrot)
