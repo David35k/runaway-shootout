@@ -22,9 +22,9 @@ public class pickup : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         // Debug.Log("OHIOOIHOHIOHII " + collider.gameObject.tag);
-        if (collider.gameObject.tag == "Player" && !gunPicked)
+        if (collider.gameObject.tag == "playa hitbox" && !gunPicked)
         {
-            collider.gameObject.GetComponent<playa>().getGun(gunChoice);
+            collider.gameObject.transform.parent.gameObject.GetComponent<playa>().getGun(gunChoice);
             gunPicked = true;
         }
     }

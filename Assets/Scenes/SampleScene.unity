@@ -1276,12 +1276,16 @@ PrefabInstance:
       value: playa
       objectReference: {fileID: 0}
     - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
+      propertyPath: gunSpawn
+      value: 
+      objectReference: {fileID: 1789899454}
+    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: playaNumber
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: rotationTorque
-      value: 1.7
+      value: 1.775
       objectReference: {fileID: 0}
     - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: raycastDistance

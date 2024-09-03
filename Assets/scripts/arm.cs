@@ -12,9 +12,17 @@ public class arm : MonoBehaviour
     private GameObject currentTarget;
     private bool tracking = false;
 
+
+    void Start()
+    {
+        // ConfigurableJoint joint = gameObject.GetComponent<ConfigurableJoint>();
+
+        // // Adjust anchor and connected anchor to define the pivot point
+        // joint.anchor = Vector3.zero; // Local pivot point
+        // joint.connectedAnchor = Vector3.zero; // Relative to the connected body
+    }
     void OnTriggerStay(Collider collider)
     {
-        Debug.Log(collider.gameObject.name);
         if (targets.Contains(collider.gameObject))
         {
             currentTarget = collider.gameObject;
@@ -34,9 +42,13 @@ public class arm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (tracking)
+        if (tracking && currentTarget != null)
         {
             gameObject.transform.LookAt(currentTarget.transform);
+        }
+        else
+        {
+            // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 }

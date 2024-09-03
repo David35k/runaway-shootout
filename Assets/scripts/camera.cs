@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class camera : MonoBehaviour
@@ -18,6 +19,9 @@ public class camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position + new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y + 1.25f) * Time.deltaTime * cameraSpeed;
+        if (player != null)
+        {
+            transform.position = transform.position + new Vector3(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y + 1.25f) * Time.deltaTime * cameraSpeed;
+        }
     }
 }

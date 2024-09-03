@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,10 @@ public class gun : MonoBehaviour
     public int playaNumber;
     public float xOffset = 0f;
     public float yOffset = 0f;
+    // time betweem shots in seconds
+    public float fireRate = 0.1f;
+    private float nextFire = 0.0f;
+    public bool automatic = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +27,29 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && equipped && playaNumber == 1)
+        if (automatic)
         {
-            shoot();
+            if (Input.GetKey(KeyCode.E) && equipped && playaNumber == 1 && Time.time > nextFire)
+            {
+                shoot();
+            }
+            if (Input.GetKey(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+            {
+                shoot();
+            }
         }
-        if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2)
+        else
         {
-            shoot();
+            if (Input.GetKeyDown(KeyCode.E) && equipped && playaNumber == 1 && Time.time > nextFire)
+            {
+                shoot();
+            }
+            if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+            {
+                shoot();
+            }
         }
+
     }
 
     void shoot()
@@ -41,8 +61,9 @@ public class gun : MonoBehaviour
             bullet.GetComponent<bullet>().playaFired = playaNumber;
             if (rb)
             {
-                rb.velocity = bulletSpawn.transform.up * bulletSpeed; // Adjust direction based on your setup
+                rb.velocity = bulletSpawn.transform.up * bulletSpeed;
             }
+            nextFire = Time.time + fireRate;
         }
     }
 }

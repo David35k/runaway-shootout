@@ -16,10 +16,11 @@ public class playa : MonoBehaviour
     public float highAngularDrag = 10f;
     public GameObject gunSpawn;
     public int playaNumber;
-    private GameObject gun;
+    private GameObject schlong;
     public float groundDetectDist = 0.5f;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
+    public float health = 100f;
 
     void Awake()
     {
@@ -38,13 +39,19 @@ public class playa : MonoBehaviour
         float zrot = transform.rotation.eulerAngles.z;
         handleGround();
         handleInput(zrot);
+
+        // check if ded
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void getGun(GameObject schlong)
+    public void getGun(GameObject gun)
     {
-        gun = Instantiate(schlong, gunSpawn.transform.position + new Vector3(gun.GetComponent<gun>().xOffset, gun.GetComponent<gun>().yOffset), gunSpawn.transform.rotation, gunSpawn.transform);
-        gun.GetComponent<gun>().equipped = true;
-        gun.GetComponent<gun>().playaNumber = playaNumber;
+        schlong = Instantiate(gun, gunSpawn.transform.position + new Vector3(gun.GetComponent<gun>().xOffset, gun.GetComponent<gun>().yOffset), gunSpawn.transform.rotation, gunSpawn.transform);
+        schlong.GetComponent<gun>().equipped = true;
+        schlong.GetComponent<gun>().playaNumber = playaNumber;
     }
 
     void handleGround()
