@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 4790
-  rotationTorque: 17
+  rotationTorque: 23
   lowAngularDrag: 0.18
   highAngularDrag: 3.9
   gunSpawn: {fileID: 530206011022914128}

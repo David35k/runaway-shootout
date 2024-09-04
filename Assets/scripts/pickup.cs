@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class pickup : MonoBehaviour
 {
@@ -10,45 +11,45 @@ public class pickup : MonoBehaviour
     private GameObject gun;
     public GameObject itemPoint;
     public GameObject gunSlot;
-    public bool gunPicked = false;
     private float startingY;
+    // how often a new gun spawns in seconds
+    public float gunTime = 7.5f;
+    public float nextTime;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        newItem();
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        // Debug.Log("OHIOOIHOHIOHII " + collider.gameObject.tag);
-        if (collider.gameObject.tag == "playa hitbox" && !gunPicked)
+        if (collider.gameObject.tag == "playa hitbox" && gun != null)
         {
             collider.gameObject.transform.parent.gameObject.GetComponent<playa>().getGun(gunChoice);
-            gunPicked = true;
+            Destroy(gun);
+            gun = null;
+            nextTime = Time.time + gunTime;
         }
-    }
-
-    void Awake()
-    {
-        gun = Instantiate(gunChoice, itemPoint.transform.position, itemPoint.transform.rotation);
-        startingY = gun.transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gunPicked)
-        {
-            if (gun)
-            {
-                Destroy(gun);
-            }
-        }
-        else
+        if (gun != null)
         {
             gun.transform.position = new Vector3(gun.transform.position.x, startingY + 0.5f * (float)Math.Sin(Time.fixedTime));
             gun.transform.Rotate(0, 45f * Time.deltaTime, 0);
         }
+        else if (Time.time >= nextTime)
+        {
+            newItem();
+        }
+
+    }
+
+    void newItem()
+    {
+        gun = Instantiate(gunChoice, itemPoint.transform.position, itemPoint.transform.rotation);
+        startingY = gun.transform.position.y;
     }
 }

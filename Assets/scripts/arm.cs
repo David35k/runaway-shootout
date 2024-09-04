@@ -39,10 +39,14 @@ public class arm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (tracking && currentTarget != null && playerScript.schlong != null)
+        // make sure bro actually has a gun
+        if (playerScript.schlong != null)
         {
-            gameObject.transform.LookAt(currentTarget.transform);
+            if (tracking && currentTarget != null && playerScript.schlong.GetComponent<gun>().equipped)
+            {
+                gameObject.transform.LookAt(currentTarget.transform);
+            }
         }
+
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -18,10 +19,9 @@ public class playa : MonoBehaviour
     public int playaNumber;
     public GameObject schlong = null;
     public float groundDetectDist = 0.5f;
-    public LayerMask groundLayer;
-    public LayerMask playerLayer;
     public float health = 100f;
-
+    public bool ded;
+    public GameObject spawnPoint;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -43,8 +43,20 @@ public class playa : MonoBehaviour
         // check if ded
         if (health <= 0)
         {
-            Destroy(gameObject);
+            died();
         }
+    }
+
+    void died()
+    {
+        // destroy gun if holding one
+        if (schlong != null)
+        {
+            Destroy(schlong);
+            schlong = null;
+        }
+        transform.position = spawnPoint.transform.position;
+        health = 100;
     }
 
     public void getGun(GameObject gun)
@@ -105,6 +117,7 @@ public class playa : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(transform.up * jumpForce);
+                grounded = false;
             }
         }
         if (Input.GetKeyUp(KeyCode.Q) && playaNumber == 1)
@@ -112,6 +125,7 @@ public class playa : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(transform.up * jumpForce);
+                grounded = false;
             }
         }
 
@@ -145,6 +159,7 @@ public class playa : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(transform.up * jumpForce);
+                grounded = false;
             }
         }
         if (Input.GetKeyUp(KeyCode.I) && playaNumber == 2)
@@ -152,6 +167,7 @@ public class playa : MonoBehaviour
             if (grounded)
             {
                 rb.AddForce(transform.up * jumpForce);
+                grounded = false;
             }
         }
 
