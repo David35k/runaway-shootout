@@ -262,7 +262,8 @@ MonoBehaviour:
   gunChoice: {fileID: 4076597938311034799, guid: ad01fbd86a3318848bdec6f4907fbb22, type: 3}
   itemPoint: {fileID: 1285995545}
   gunSlot: {fileID: 1789899454}
-  gunPicked: 0
+  gunTime: 7.5
+  nextTime: 0
 --- !u!136 &116201080
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -830,7 +831,8 @@ MonoBehaviour:
   gunChoice: {fileID: 4076597938311034799, guid: ad01fbd86a3318848bdec6f4907fbb22, type: 3}
   itemPoint: {fileID: 888412822}
   gunSlot: {fileID: 1789899454}
-  gunPicked: 0
+  gunTime: 7.5
+  nextTime: 0
 --- !u!136 &801802378
 CapsuleCollider:
   m_ObjectHideFlags: 0
