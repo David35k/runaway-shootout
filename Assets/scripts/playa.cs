@@ -16,7 +16,7 @@ public class playa : MonoBehaviour
     public float highAngularDrag = 10f;
     public GameObject gunSpawn;
     public int playaNumber;
-    private GameObject schlong;
+    public GameObject schlong = null;
     public float groundDetectDist = 0.5f;
     public LayerMask groundLayer;
     public LayerMask playerLayer;
