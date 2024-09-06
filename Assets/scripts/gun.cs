@@ -38,12 +38,14 @@ public class gun : MonoBehaviour
                 collider.transform.parent.gameObject.GetComponent<playa>().health -= 5;
                 thrown = false;
                 GetComponent<BoxCollider>().isTrigger = false;
-                Destroy(gameObject, 3f);
+                Destroy(gameObject, 5f);
             }
         }
         else if (collider.gameObject.tag == "ground" && thrown)
         {
-            Destroy(gameObject);
+            thrown = false;
+            GetComponent<BoxCollider>().isTrigger = false;
+            Destroy(gameObject, 5f);
         }
     }
 
@@ -88,6 +90,7 @@ public class gun : MonoBehaviour
                 rb.AddTorque(Random.insideUnitSphere * spinForce, ForceMode.Impulse);
                 thrown = true;
                 equipped = false;
+
                 return;
             }
 

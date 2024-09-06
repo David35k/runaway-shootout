@@ -44,7 +44,7 @@ public class arm : MonoBehaviour
         {
             if (tracking && currentTarget != null && playerScript.schlong.GetComponent<gun>().equipped)
             {
-                gameObject.transform.LookAt(currentTarget.transform);
+                gameObject.transform.LookAt(currentTarget.transform.position + new Vector3(0f, 0.8f));
             }
         }
 

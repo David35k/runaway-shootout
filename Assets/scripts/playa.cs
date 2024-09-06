@@ -36,14 +36,19 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float zrot = transform.rotation.eulerAngles.z;
-        handleGround();
-        handleInput(zrot);
-
         // check if ded
         if (health <= 0)
         {
             died();
+        }
+
+        float zrot = transform.rotation.eulerAngles.z;
+        handleGround();
+        handleInput(zrot);
+
+        if (schlong && !schlong.GetComponent<gun>().equipped)
+        {
+            schlong = null;
         }
     }
 

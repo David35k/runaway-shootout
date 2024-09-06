@@ -7,10 +7,10 @@ using UnityEngine.UIElements;
 public class pickup : MonoBehaviour
 {
 
+    public GameObject[] guns;
     public GameObject gunChoice;
     private GameObject gun;
     public GameObject itemPoint;
-    public GameObject gunSlot;
     private float startingY;
     // how often a new gun spawns in seconds
     public float gunTime = 7.5f;
@@ -21,9 +21,9 @@ public class pickup : MonoBehaviour
         newItem();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.tag == "playa hitbox" && gun != null)
+        if (collider.gameObject.tag == "playa hitbox" && gun != null && collider.gameObject.transform.parent.gameObject.GetComponent<playa>().schlong == null)
         {
             collider.gameObject.transform.parent.gameObject.GetComponent<playa>().getGun(gunChoice);
             Destroy(gun);
@@ -49,6 +49,9 @@ public class pickup : MonoBehaviour
 
     void newItem()
     {
+        // choose random gun
+        gunChoice = guns[UnityEngine.Random.Range(0, guns.Length)];
+
         gun = Instantiate(gunChoice, itemPoint.transform.position, itemPoint.transform.rotation);
         startingY = gun.transform.position.y;
     }
