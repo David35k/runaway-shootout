@@ -892,10 +892,6 @@ PrefabInstance:
       propertyPath: playaNumber
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4739833238717615935, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
-      propertyPath: groundDetectDist
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6891425367644154236, guid: 07854e960a2353d4cbe8cd4cb9bf0456, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

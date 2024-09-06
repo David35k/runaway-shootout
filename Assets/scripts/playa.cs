@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -20,11 +21,13 @@ public class playa : MonoBehaviour
     public GameObject schlong = null;
     public float groundDetectDist = 0.5f;
     public float health = 100f;
-    public bool ded;
+    public bool ded = false;
     public GameObject spawnPoint;
+    private RigidbodyConstraints defaultConstraints;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        defaultConstraints = rb.constraints;
     }
 
     void OnDrawGizmos()
@@ -39,7 +42,11 @@ public class playa : MonoBehaviour
         // check if ded
         if (health <= 0)
         {
-            died();
+            if (!ded)
+            {
+                died();
+            }
+            return;
         }
 
         float zrot = transform.rotation.eulerAngles.z;
@@ -54,14 +61,28 @@ public class playa : MonoBehaviour
 
     void died()
     {
-        // destroy gun if holding one
+        ded = true;
+        // throw that bish away, ded people dont need guns
         if (schlong != null)
         {
-            Destroy(schlong);
+            schlong.GetComponent<gun>().yeet();
             schlong = null;
         }
+        rb.constraints = RigidbodyConstraints.None;
+        rb.centerOfMass = new Vector3(0f, 0f);
+        rb.AddTorque(Random.insideUnitSphere * jumpForce, ForceMode.Impulse);
+        StartCoroutine(delayedDed());
+    }
+
+    IEnumerator delayedDed()
+    {
+        yield return new WaitForSeconds(2f);
+        rb.centerOfMass = new Vector3(0f, -0.27f);
+        rb.constraints = defaultConstraints;
         transform.position = spawnPoint.transform.position;
+        transform.rotation = spawnPoint.transform.rotation;
         health = 100;
+        ded = false;
     }
 
     public void getGun(GameObject gun)

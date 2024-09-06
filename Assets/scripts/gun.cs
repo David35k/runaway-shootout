@@ -77,6 +77,17 @@ public class gun : MonoBehaviour
 
     }
 
+    // throw is a taken keyword bruh
+    public void yeet()
+    {
+        transform.parent = null;
+        rb.isKinematic = false;
+        rb.AddForce(transform.right * throwForce + transform.up * throwForce / 2.8f, ForceMode.Impulse);
+        rb.AddTorque(Random.insideUnitSphere * spinForce, ForceMode.Impulse);
+        thrown = true;
+        equipped = false;
+    }
+
     void shoot()
     {
         if (bulletPrefab && bulletSpawn)
@@ -84,13 +95,7 @@ public class gun : MonoBehaviour
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)
             {
-                transform.parent = null;
-                rb.isKinematic = false;
-                rb.AddForce(transform.right * throwForce + transform.up * throwForce / 2.8f, ForceMode.Impulse);
-                rb.AddTorque(Random.insideUnitSphere * spinForce, ForceMode.Impulse);
-                thrown = true;
-                equipped = false;
-
+                yeet();
                 return;
             }
 
