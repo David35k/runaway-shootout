@@ -20,6 +20,7 @@ public class gun : MonoBehaviour
     private float throwForce = 3f;
     private float spinForce = 5f;
     public bool thrown = false;
+    public bool meele = false;
     Rigidbody rb;
 
     void Start()
@@ -90,7 +91,18 @@ public class gun : MonoBehaviour
 
     void shoot()
     {
-        if (bulletPrefab && bulletSpawn)
+        if (meele)
+        {
+            // LMAO
+            transform.parent.transform.parent.GetComponent<arm>().swing();
+            // out of ammo, throw that bish
+            if (ammo == 0 && !thrown)
+            {
+                yeet();
+                return;
+            }
+        }
+        else if (bulletPrefab && bulletSpawn)
         {
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)

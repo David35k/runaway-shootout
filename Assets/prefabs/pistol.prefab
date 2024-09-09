@@ -91,6 +91,7 @@ MonoBehaviour:
   automatic: 0
   ammo: 13
   thrown: 0
+  meele: 1
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

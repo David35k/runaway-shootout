@@ -12,6 +12,7 @@ public class arm : MonoBehaviour
     private GameObject currentTarget;
     private bool tracking = false;
     private playa playerScript;
+    public float swingForce = 50000f;
 
     void Start()
     {
@@ -23,7 +24,7 @@ public class arm : MonoBehaviour
         if (targets.Contains(collider.gameObject))
         {
             currentTarget = collider.gameObject;
-            tracking = true;
+            // tracking = true;
         }
     }
 
@@ -44,9 +45,17 @@ public class arm : MonoBehaviour
         {
             if (tracking && currentTarget != null && playerScript.schlong.GetComponent<gun>().equipped)
             {
-                gameObject.transform.LookAt(currentTarget.transform.position + new Vector3(0f, 0.8f));
+                transform.LookAt(currentTarget.transform.position + new Vector3(0f, 0.8f));
             }
         }
 
+    }
+
+    public void swing()
+    {
+        tracking = false;
+        // transform.rotation = Quaternion.Lerp(Quaternion.Euler(), Quaternion.Euler(Vector3.forward), 1f);
+        // transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+        GetComponent<Rigidbody>().AddTorque(0f, 0f, -90f, ForceMode.Impulse);
     }
 }
