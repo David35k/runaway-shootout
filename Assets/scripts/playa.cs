@@ -1,12 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class playa : MonoBehaviour
 {
@@ -17,6 +10,7 @@ public class playa : MonoBehaviour
     public float lowAngularDrag = 0.4f;
     public float highAngularDrag = 10f;
     public GameObject gunSpawn;
+    public GameObject playaArm;
     public int playaNumber;
     public GameObject schlong = null;
     public float groundDetectDist = 0.5f;
@@ -68,6 +62,7 @@ public class playa : MonoBehaviour
             schlong.GetComponent<gun>().yeet();
             schlong = null;
         }
+        // playaArm.transform.rotation = Quaternion.Euler(Vector3.right);
         rb.constraints = RigidbodyConstraints.None;
         rb.centerOfMass = new Vector3(0f, 0f);
         rb.AddTorque(Random.insideUnitSphere * jumpForce, ForceMode.Impulse);

@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets: []
+  swingForce: 50000
 --- !u!135 &1827794049628906388
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ ConfigurableJoint:
   m_ZMotion: 0
   m_AngularXMotion: 2
   m_AngularYMotion: 1
-  m_AngularZMotion: 2
+  m_AngularZMotion: 1
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -172,11 +173,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 15.165407
+    limit: 20.316628
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 177
+    limit: 17.289417
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
@@ -435,11 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b08780f41fbcc4fb15e021dd5105d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 4790
-  rotationTorque: 23
-  lowAngularDrag: 0.18
+  jumpForce: 4800
+  rotationTorque: 25
+  lowAngularDrag: 0.17
   highAngularDrag: 3.9
   gunSpawn: {fileID: 530206011022914128}
+  playaArm: {fileID: 1655918856562422410}
   playaNumber: 0
   schlong: {fileID: 0}
   groundDetectDist: 0.5

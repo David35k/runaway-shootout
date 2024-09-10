@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class gun : MonoBehaviour
@@ -31,14 +29,23 @@ public class gun : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "playa hitbox" && thrown)
+        if (collider.gameObject.tag == "playa hitbox" && collider.transform.parent.gameObject.GetComponent<playa>().playaNumber != playaNumber)
         {
             // ouch
-            if (collider.transform.parent.gameObject.GetComponent<playa>().playaNumber != playaNumber)
+            if (thrown)
             {
                 collider.transform.parent.gameObject.GetComponent<playa>().health -= 5;
                 thrown = false;
                 GetComponent<BoxCollider>().isTrigger = false;
+                Destroy(gameObject, 5f);
+            }
+
+            // big ouch - make sure its equipped bruh
+            if (meele && equipped)
+            {
+                collider.transform.parent.gameObject.GetComponent<playa>().health -= 100;
+                GetComponent<BoxCollider>().isTrigger = false;
+                drop();
                 Destroy(gameObject, 5f);
             }
         }
@@ -75,7 +82,14 @@ public class gun : MonoBehaviour
                 shoot();
             }
         }
+    }
 
+    // not as cool as throwing it but it is what it is
+    void drop()
+    {
+        transform.parent = null;
+        rb.isKinematic = false;
+        equipped = false;
     }
 
     // throw is a taken keyword bruh
@@ -93,14 +107,8 @@ public class gun : MonoBehaviour
     {
         if (meele)
         {
-            // LMAO
+            // LMAO such epic coding
             transform.parent.transform.parent.GetComponent<arm>().swing();
-            // out of ammo, throw that bish
-            if (ammo == 0 && !thrown)
-            {
-                yeet();
-                return;
-            }
         }
         else if (bulletPrefab && bulletSpawn)
         {
