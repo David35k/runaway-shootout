@@ -44,13 +44,18 @@ public class playa : MonoBehaviour
         }
 
         float zrot = transform.rotation.eulerAngles.z;
-        handleGround();
         handleInput(zrot);
 
         if (schlong && !schlong.GetComponent<gun>().equipped)
         {
             schlong = null;
         }
+    }
+
+    // frame independent type shi
+    void FixedUpdate()
+    {
+        handleGround();
     }
 
     void died()
@@ -111,7 +116,7 @@ public class playa : MonoBehaviour
         // PLAYER 1
         if (Input.GetKey(KeyCode.W) && playaNumber == 1)
         {
-            if (grounded && (zrot > 290 || zrot < 70))
+            if (grounded && (zrot > 300 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
@@ -123,7 +128,7 @@ public class playa : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q) && playaNumber == 1)
         {
-            if (grounded && (zrot > 290 || zrot < 70))
+            if (grounded && (zrot > 300 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
@@ -153,7 +158,7 @@ public class playa : MonoBehaviour
         // PLAYER 2
         if (Input.GetKey(KeyCode.O) && playaNumber == 2)
         {
-            if (grounded && (zrot > 290 || zrot < 70))
+            if (grounded && (zrot > 300 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
@@ -165,7 +170,7 @@ public class playa : MonoBehaviour
 
         if (Input.GetKey(KeyCode.I) && playaNumber == 2)
         {
-            if (grounded && (zrot > 290 || zrot < 70))
+            if (grounded && (zrot > 300 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
