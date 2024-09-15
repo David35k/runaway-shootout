@@ -33,29 +33,35 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // check if ded
-        if (health <= 0)
+        if (!ded)
         {
-            if (!ded)
+            handleGround();
+            if (grounded)
             {
-                died();
+                handleJump();
             }
-            return;
-        }
 
-        float zrot = transform.rotation.eulerAngles.z;
-        handleInput(zrot);
-
-        if (schlong && !schlong.GetComponent<gun>().equipped)
-        {
-            schlong = null;
+            if (schlong && !schlong.GetComponent<gun>().equipped)
+            {
+                schlong = null;
+            }
         }
     }
 
     // frame independent type shi
     void FixedUpdate()
     {
-        handleGround();
+        if (!ded)
+        {
+            // check if ded
+            if (health <= 0)
+            {
+                died();
+            }
+
+            float zrot = transform.rotation.eulerAngles.z;
+            handleInput(zrot);
+        }
     }
 
     void died()
@@ -77,10 +83,12 @@ public class playa : MonoBehaviour
     IEnumerator delayedDed()
     {
         yield return new WaitForSeconds(2f);
+        rb.velocity = Vector3.zero; // Reset velocity
+        rb.angularVelocity = Vector3.zero; // Reset angular velocity
         rb.centerOfMass = new Vector3(0f, -0.27f);
         rb.constraints = defaultConstraints;
-        transform.position = spawnPoint.transform.position;
-        transform.rotation = spawnPoint.transform.rotation;
+        rb.MovePosition(spawnPoint.transform.position);
+        rb.MoveRotation(spawnPoint.transform.rotation);
         health = 100;
         ded = false;
     }
@@ -111,6 +119,36 @@ public class playa : MonoBehaviour
         }
     }
 
+    void handleJump()
+    {
+        // PLAYER 1
+        if (Input.GetKeyUp(KeyCode.W) && playaNumber == 1)
+        {
+            rb.AddForce(transform.up * jumpForce);
+            grounded = false;
+        }
+        if (Input.GetKeyUp(KeyCode.Q) && playaNumber == 1)
+        {
+            rb.AddForce(transform.up * jumpForce);
+            grounded = false;
+        }
+
+        // PLAYER 2
+        if (Input.GetKeyUp(KeyCode.O) && playaNumber == 2)
+        {
+
+            rb.AddForce(transform.up * jumpForce);
+            grounded = false;
+        }
+
+        if (Input.GetKeyUp(KeyCode.I) && playaNumber == 2)
+        {
+            rb.AddForce(transform.up * jumpForce);
+            grounded = false;
+        }
+
+    }
+
     void handleInput(float zrot)
     {
         // PLAYER 1
@@ -138,23 +176,6 @@ public class playa : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.W) && playaNumber == 1)
-        {
-            if (grounded)
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Q) && playaNumber == 1)
-        {
-            if (grounded)
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-            }
-        }
-
         // PLAYER 2
         if (Input.GetKey(KeyCode.O) && playaNumber == 2)
         {
@@ -179,23 +200,5 @@ public class playa : MonoBehaviour
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.O) && playaNumber == 2)
-        {
-            if (grounded)
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.I) && playaNumber == 2)
-        {
-            if (grounded)
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-            }
-        }
-
     }
 }
