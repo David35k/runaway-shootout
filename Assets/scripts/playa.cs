@@ -161,6 +161,9 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }else if (zrot < 300 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
@@ -173,6 +176,9 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
+            }else if (zrot < 300 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
@@ -186,6 +192,9 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }else if (zrot < 300 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
@@ -198,6 +207,9 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
+            }else if (zrot < 300 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
     }

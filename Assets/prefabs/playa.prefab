@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b08780f41fbcc4fb15e021dd5105d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 4900
-  rotationTorque: 37
+  jumpForce: 5900
+  rotationTorque: 50
   lowAngularDrag: 0.15
   highAngularDrag: 3.7
   gunSpawn: {fileID: 530206011022914128}
