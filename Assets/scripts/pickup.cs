@@ -25,10 +25,13 @@ public class pickup : MonoBehaviour
     {
         if (collider.gameObject.tag == "playa hitbox" && gun != null && collider.gameObject.transform.parent.gameObject.GetComponent<playa>().schlong == null)
         {
-            collider.gameObject.transform.parent.gameObject.GetComponent<playa>().getGun(gunChoice);
-            Destroy(gun);
-            gun = null;
-            nextTime = Time.time + gunTime;
+            if(!collider.gameObject.transform.parent.gameObject.GetComponent<playa>().ded)
+            {
+                collider.gameObject.transform.parent.gameObject.GetComponent<playa>().getGun(gunChoice);
+                Destroy(gun);
+                gun = null;
+                nextTime = Time.time + gunTime;
+            }
         }
     }
 

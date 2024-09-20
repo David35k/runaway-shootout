@@ -73,7 +73,6 @@ public class playa : MonoBehaviour
             schlong.GetComponent<gun>().yeet();
             schlong = null;
         }
-        // playaArm.transform.rotation = Quaternion.Euler(Vector3.right);
         rb.constraints = RigidbodyConstraints.None;
         rb.centerOfMass = new Vector3(0f, 0f);
         rb.AddTorque(Random.insideUnitSphere * jumpForce, ForceMode.Impulse);
@@ -85,6 +84,9 @@ public class playa : MonoBehaviour
         yield return new WaitForSeconds(2f);
         rb.velocity = Vector3.zero; // Reset velocity
         rb.angularVelocity = Vector3.zero; // Reset angular velocity
+        playaArm.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Vector3.right));
+        playaArm.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        playaArm.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         rb.centerOfMass = new Vector3(0f, -0.27f);
         rb.constraints = defaultConstraints;
         rb.MovePosition(spawnPoint.transform.position);

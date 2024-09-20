@@ -60,6 +60,7 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (automatic)
         {
             if (Input.GetKey(KeyCode.E) && equipped && playaNumber == 1 && Time.time > nextFire)
