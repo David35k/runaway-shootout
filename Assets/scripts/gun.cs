@@ -20,6 +20,9 @@ public class gun : MonoBehaviour
     public bool thrown = false;
     public bool meele = false;
     Rigidbody rb;
+    public bool shotgun = false;
+    // only if applies if shotgun is set to true
+    public int shellCount = 0;
 
     void Start()
     {
@@ -110,8 +113,10 @@ public class gun : MonoBehaviour
         {
             // LMAO such epic coding
             transform.parent.transform.parent.GetComponent<arm>().swing();
+            return;
         }
-        else if (bulletPrefab && bulletSpawn)
+
+        if (bulletPrefab && bulletSpawn)
         {
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)
@@ -120,15 +125,25 @@ public class gun : MonoBehaviour
                 return;
             }
 
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-            bullet.GetComponent<bullet>().playaFired = playaNumber;
-            if (bulletRb)
+            if (shotgun)
             {
-                bulletRb.velocity = bulletSpawn.transform.up * bulletSpeed;
+                for (int i = 0; i < shellCount; i++)
+                {
+                    GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation + Quaternion.Euler(Random.insideUnitSphere));
+                    bullet.GetComponent<bullet>().playaFired = playaNumber;
+                    bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed);
+
+                }
             }
+            else
+            {
+                GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+                bullet.GetComponent<bullet>().playaFired = playaNumber;
+                bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed);
+            }
+
+
             ammo--;
-            nextFire = Time.time + fireRate;
         }
     }
 }

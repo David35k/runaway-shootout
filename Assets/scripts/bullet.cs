@@ -40,4 +40,10 @@ public class bullet : MonoBehaviour
     {
 
     }
+
+    public void shoot(GameObject bulletSpawn, float bulletSpeed)
+    {
+        // shoot da bullet!!!
+        GetComponent<Rigidbody>().velocity = bulletSpawn.transform.up * bulletSpeed;
+    }
 }

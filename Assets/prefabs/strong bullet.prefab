@@ -43,7 +43,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.78079355, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.34317866, b: 0, a: 1}
   m_Intensity: 2
   m_Range: 2.4328315
   m_SpotAngle: 30
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: -6035477010265218256}
   - component: {fileID: 2197419032275247979}
   m_Layer: 0
-  m_Name: bullet
+  m_Name: strong bullet
   m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0604788e485cd2940a9a2319ff5d20ae, type: 2}
+  - {fileID: 2100000, guid: e561ba7a7964a934ba5f49abfed9029e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -245,4 +245,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletLifetime: 5
   playaFired: 0
-  damage: 7.5
+  damage: 75
