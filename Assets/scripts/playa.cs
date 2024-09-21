@@ -41,7 +41,7 @@ public class playa : MonoBehaviour
                 handleJump();
             }
 
-            if (schlong && !schlong.GetComponent<gun>().equipped)
+            if (schlong != null && !schlong.GetComponent<gun>().equipped)
             {
                 schlong = null;
             }
@@ -84,7 +84,7 @@ public class playa : MonoBehaviour
         yield return new WaitForSeconds(2f);
         rb.velocity = Vector3.zero; // Reset velocity
         rb.angularVelocity = Vector3.zero; // Reset angular velocity
-        playaArm.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Vector3.right));
+        playaArm.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Vector3.forward));
         playaArm.GetComponent<Rigidbody>().velocity = Vector3.zero;
         playaArm.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         rb.centerOfMass = new Vector3(0f, -0.27f);
@@ -124,37 +124,44 @@ public class playa : MonoBehaviour
     void handleJump()
     {
         // PLAYER 1
-        if (Input.GetKeyUp(KeyCode.W) && playaNumber == 1)
+        if (playaNumber == 1)
         {
-            rb.AddForce(transform.up * jumpForce);
-            grounded = false;
-        }
-        if (Input.GetKeyUp(KeyCode.Q) && playaNumber == 1)
-        {
-            rb.AddForce(transform.up * jumpForce);
-            grounded = false;
-        }
-
-        // PLAYER 2
-        if (Input.GetKeyUp(KeyCode.O) && playaNumber == 2)
-        {
-
-            rb.AddForce(transform.up * jumpForce);
-            grounded = false;
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                rb.AddForce(transform.up * jumpForce);
+                grounded = false;
+                return;
+            }
+            else if (Input.GetKeyUp(KeyCode.W))
+            {
+                rb.AddForce(transform.up * jumpForce);
+                grounded = false;
+                return;
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.I) && playaNumber == 2)
+        if (playaNumber == 2)
         {
-            rb.AddForce(transform.up * jumpForce);
-            grounded = false;
+            // PLAYER 2
+            if (Input.GetKeyUp(KeyCode.P))
+            {
+                rb.AddForce(transform.up * jumpForce);
+                grounded = false;
+                return;
+            }
+            else if (Input.GetKeyUp(KeyCode.O))
+            {
+                rb.AddForce(transform.up * jumpForce);
+                grounded = false;
+                return;
+            }
         }
-
     }
 
     void handleInput(float zrot)
     {
         // PLAYER 1
-        if (Input.GetKey(KeyCode.W) && playaNumber == 1)
+        if (Input.GetKey(KeyCode.E) && playaNumber == 1)
         {
             if (grounded && (zrot > 300 || zrot < 60))
             {
@@ -163,13 +170,14 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
-            }else if (zrot < 300 || zrot > 60)
+            }
+            else if (zrot < 300 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
-        if (Input.GetKey(KeyCode.Q) && playaNumber == 1)
+        if (Input.GetKey(KeyCode.W) && playaNumber == 1)
         {
             if (grounded && (zrot > 300 || zrot < 60))
             {
@@ -178,14 +186,15 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
-            }else if (zrot < 300 || zrot > 60)
+            }
+            else if (zrot < 300 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
         // PLAYER 2
-        if (Input.GetKey(KeyCode.O) && playaNumber == 2)
+        if (Input.GetKey(KeyCode.P) && playaNumber == 2)
         {
             if (grounded && (zrot > 300 || zrot < 60))
             {
@@ -194,13 +203,14 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
-            }else if (zrot < 300 || zrot > 60)
+            }
+            else if (zrot < 300 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
         }
 
-        if (Input.GetKey(KeyCode.I) && playaNumber == 2)
+        if (Input.GetKey(KeyCode.O) && playaNumber == 2)
         {
             if (grounded && (zrot > 300 || zrot < 60))
             {
@@ -209,7 +219,8 @@ public class playa : MonoBehaviour
             else if (!grounded)
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
-            }else if (zrot < 300 || zrot > 60)
+            }
+            else if (zrot < 300 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
