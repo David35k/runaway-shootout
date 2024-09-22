@@ -163,7 +163,7 @@ public class playa : MonoBehaviour
         // PLAYER 1
         if (Input.GetKey(KeyCode.E) && playaNumber == 1)
         {
-            if (grounded && (zrot > 300 || zrot < 60))
+            if (grounded && (zrot > 300 || zrot < 90))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
@@ -171,7 +171,7 @@ public class playa : MonoBehaviour
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
-            else if (zrot < 300 || zrot > 60)
+            else if (zrot < 300 || zrot > 90)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
@@ -179,7 +179,7 @@ public class playa : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && playaNumber == 1)
         {
-            if (grounded && (zrot > 300 || zrot < 60))
+            if (grounded && (zrot > 270 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
@@ -187,7 +187,7 @@ public class playa : MonoBehaviour
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
-            else if (zrot < 300 || zrot > 60)
+            else if (zrot < 270 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
@@ -196,7 +196,7 @@ public class playa : MonoBehaviour
         // PLAYER 2
         if (Input.GetKey(KeyCode.P) && playaNumber == 2)
         {
-            if (grounded && (zrot > 300 || zrot < 60))
+            if (grounded && (zrot > 300 || zrot < 90))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
@@ -204,7 +204,7 @@ public class playa : MonoBehaviour
             {
                 rb.AddTorque(Vector3.forward * rotationTorque * -1);
             }
-            else if (zrot < 300 || zrot > 60)
+            else if (zrot < 300 || zrot > 90)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
@@ -212,7 +212,7 @@ public class playa : MonoBehaviour
 
         if (Input.GetKey(KeyCode.O) && playaNumber == 2)
         {
-            if (grounded && (zrot > 300 || zrot < 60))
+            if (grounded && (zrot > 270 || zrot < 60))
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
@@ -220,7 +220,7 @@ public class playa : MonoBehaviour
             {
                 rb.AddTorque(Vector3.forward * rotationTorque);
             }
-            else if (zrot < 300 || zrot > 60)
+            else if (zrot < 270 || zrot > 60)
             {
                 rb.angularVelocity = Vector3.zero; // Reset angular velocity
             }
