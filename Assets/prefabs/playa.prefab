@@ -149,8 +149,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 1
-  m_AngularZMotion: 1
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0

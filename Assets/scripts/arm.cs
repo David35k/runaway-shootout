@@ -9,7 +9,7 @@ public class arm : MonoBehaviour
 {
 
     public GameObject[] targets;
-    private GameObject currentTarget;
+    public GameObject currentTarget;
     private bool tracking = false;
     private playa playerScript;
     public float swingForce = 100000f;

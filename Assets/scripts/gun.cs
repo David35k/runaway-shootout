@@ -23,6 +23,8 @@ public class gun : MonoBehaviour
     public bool shotgun = false;
     // only if applies if shotgun is set to true
     public int shellCount = 0;
+    // also only applies when shotgun is set to true
+    public float spreadAmount = 1f;
 
     void Start()
     {
@@ -127,22 +129,25 @@ public class gun : MonoBehaviour
 
             if (shotgun)
             {
+                // this code is whack and doesnt work that well but whatever bruh its just a silly game
                 for (int i = 0; i < shellCount; i++)
                 {
-                    GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation + Quaternion.Euler(Random.insideUnitSphere));
-                    bullet.GetComponent<bullet>().playaFired = playaNumber;
-                    bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed);
+                    // Offset the bullet's spawn position slightly to avoid immediate collision
+                    Vector3 spawnPositionOffset = bulletSpawn.transform.position + Vector3.up * i * 0.5f;
 
+                    GameObject bullet = Instantiate(bulletPrefab, spawnPositionOffset, bulletSpawn.transform.rotation * Quaternion.Euler(Random.insideUnitSphere));
+                    bullet.GetComponent<bullet>().playaFired = playaNumber;
+                    bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget);
                 }
             }
             else
             {
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
                 bullet.GetComponent<bullet>().playaFired = playaNumber;
-                bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed);
+                bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget);
             }
 
-
+            nextFire = Time.time + fireRate;
             ammo--;
         }
     }

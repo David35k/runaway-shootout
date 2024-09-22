@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 4076597938311034799, guid: 37905abbf626d184fb4016887a6945fc, type: 3}
   - {fileID: 4076597938311034799, guid: 72f020904164d31459af5942dd469a3a, type: 3}
   - {fileID: 4076597938311034799, guid: 40f2ecf2ea0056a46b35ab02c898a8a7, type: 3}
+  - {fileID: 4076597938311034799, guid: 56590d532d4adb545bfa47091fa24201, type: 3}
   gunChoice: {fileID: 0}
   itemPoint: {fileID: 2510734951125729826}
   gunTime: 7.5
