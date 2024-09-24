@@ -12,7 +12,7 @@ public class arm : MonoBehaviour
     public GameObject currentTarget;
     private bool tracking = false;
     private playa playerScript;
-    public float swingForce = 100000f;
+    public float swingForce = 100f;
 
     void Start()
     {
@@ -56,6 +56,6 @@ public class arm : MonoBehaviour
     public void swing()
     {
         tracking = false;
-        GetComponent<Rigidbody>().AddTorque(0f, 0f, -90f, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddTorque(0f, 0f, -1 * swingForce, ForceMode.Impulse);
     }
 }

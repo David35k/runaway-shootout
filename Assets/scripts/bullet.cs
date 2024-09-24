@@ -17,6 +17,8 @@ public class bullet : MonoBehaviour
     public float flyForce = 100f;
     private float explosionRadius = 3.75f;
     private float explosionForce = 2000f;
+    public bool stun = false;
+    public float stunLength = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,10 +32,10 @@ public class bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "ground")
+        if (collision.gameObject.tag == "ground" && !uselessAhh)
         {
             Destroy(gameObject, 1f);
-            if (missile && !uselessAhh)
+            if (missile)
             {
                 kaboom();
             }
@@ -45,6 +47,10 @@ public class bullet : MonoBehaviour
             if (missile)
             {
                 kaboom();
+            }
+            if (stun)
+            {
+                collision.gameObject.GetComponent<playa>().stun(stunLength);
             }
             uselessAhh = true;
         }
@@ -71,7 +77,7 @@ public class bullet : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 
-    void kaboom()
+    public void kaboom()
     {
         // Find all objects within the explosion radius
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);

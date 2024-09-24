@@ -60,12 +60,18 @@ public class gun : MonoBehaviour
             GetComponent<BoxCollider>().isTrigger = false;
             Destroy(gameObject, 5f);
         }
+
+        // epic mechanic
+        if (collider.gameObject.GetComponent<bullet>() && collider.gameObject.GetComponent<bullet>().missile && meele)
+        {
+            Debug.Log("epic ninja moment");
+            collider.gameObject.GetComponent<bullet>().kaboom();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (automatic)
         {
             if (Input.GetKey(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
@@ -133,7 +139,7 @@ public class gun : MonoBehaviour
                 for (int i = 0; i < shellCount; i++)
                 {
                     // Offset the bullet's spawn position slightly to avoid immediate collision
-                    Vector3 spawnPositionOffset = bulletSpawn.transform.position + Vector3.up * i * 0.5f;
+                    Vector3 spawnPositionOffset = bulletSpawn.transform.position + Vector3.up * i * 0.1f;
 
                     GameObject bullet = Instantiate(bulletPrefab, spawnPositionOffset, bulletSpawn.transform.rotation * Quaternion.Euler(Random.insideUnitSphere));
                     bullet.GetComponent<bullet>().playaFired = playaNumber;

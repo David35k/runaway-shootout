@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: -6665925078764790551}
   - component: {fileID: 3337636281250326824}
   m_Layer: 0
-  m_Name: pistol
+  m_Name: freeze gun
   m_TagString: gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,16 +80,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f73fd505ae37649a25f7d6d86885cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5431365635955119874, guid: b2b457c996c94a04c83f6b9a00021f71, type: 3}
+  bulletPrefab: {fileID: 5431365635955119874, guid: e954fae7f14c1d2488de64b1fa5f57c7, type: 3}
   bulletSpawn: {fileID: 3722464148948563376}
-  bulletSpeed: 40
+  bulletSpeed: 50
   equipped: 0
   playaNumber: 0
   xOffset: 0
   yOffset: 0
-  fireRate: 0.1
+  fireRate: 0.5
   automatic: 0
-  ammo: 13
+  ammo: 1
   thrown: 0
   meele: 0
   shotgun: 0
@@ -205,7 +205,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 520a0c2a94b1cde4fab4a348137ac96f, type: 2}
+  - {fileID: 2100000, guid: dc178fa1eafebc84b91d8882fbe2cb05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 520a0c2a94b1cde4fab4a348137ac96f, type: 2}
+  - {fileID: 2100000, guid: dc178fa1eafebc84b91d8882fbe2cb05, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

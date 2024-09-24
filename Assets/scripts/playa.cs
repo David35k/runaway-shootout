@@ -18,6 +18,7 @@ public class playa : MonoBehaviour
     public bool ded = false;
     public GameObject spawnPoint;
     private RigidbodyConstraints defaultConstraints;
+    bool stunned = false;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -33,7 +34,7 @@ public class playa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ded)
+        if (!ded && !stunned)
         {
             handleGround();
             if (grounded)
@@ -60,8 +61,25 @@ public class playa : MonoBehaviour
             }
 
             float zrot = transform.rotation.eulerAngles.z;
-            handleInput(zrot);
+            if (!stunned)
+            {
+                handleInput(zrot);
+            }
         }
+    }
+
+    public void stun(float length)
+    {
+        stunned = true;
+        rb.isKinematic = true;
+        StartCoroutine(unfreeze(length));
+    }
+
+    IEnumerator unfreeze(float length)
+    {
+        yield return new WaitForSeconds(length);
+        rb.isKinematic = false;
+        stunned = false;
     }
 
     void died()

@@ -271,6 +271,9 @@ MonoBehaviour:
   ammo: 0
   thrown: 0
   meele: 1
+  shotgun: 0
+  shellCount: 0
+  spreadAmount: 1
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -317,8 +320,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.27692127, y: 2.5498514, z: 0.9343383}
-  m_Center: {x: -0.0084347725, y: 1.5171483, z: 0.0051281154}
+  m_Size: {x: 0.27692127, y: 2.5498514, z: 2.1756697}
+  m_Center: {x: -0.0084347725, y: 1.5171483, z: -0.023834884}
 --- !u!1 &4227412242457926131
 GameObject:
   m_ObjectHideFlags: 0
