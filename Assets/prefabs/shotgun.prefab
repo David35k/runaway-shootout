@@ -201,6 +201,7 @@ MonoBehaviour:
   shotgun: 1
   shellCount: 3
   spreadAmount: 10
+  recoilForce: 5000
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

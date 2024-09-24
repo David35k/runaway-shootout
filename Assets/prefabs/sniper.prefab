@@ -311,6 +311,10 @@ MonoBehaviour:
   ammo: 5
   thrown: 0
   meele: 0
+  shotgun: 0
+  shellCount: 0
+  spreadAmount: 1
+  recoilForce: 4000
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -25,6 +25,7 @@ public class gun : MonoBehaviour
     public int shellCount = 0;
     // also only applies when shotgun is set to true
     public float spreadAmount = 1f;
+    public float recoilForce = 0f;
 
     void Start()
     {
@@ -131,6 +132,11 @@ public class gun : MonoBehaviour
             {
                 yeet();
                 return;
+            }
+            else
+            {
+                // some people just wont appreciate this coding
+                transform.parent.transform.parent.transform.parent.GetComponent<Rigidbody>().AddForce(transform.parent.transform.parent.transform.forward * -1 * recoilForce);
             }
 
             if (shotgun)

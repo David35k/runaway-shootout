@@ -200,6 +200,11 @@ MonoBehaviour:
   automatic: 1
   ammo: 30
   thrown: 0
+  meele: 0
+  shotgun: 0
+  shellCount: 0
+  spreadAmount: 1
+  recoilForce: 250
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0
