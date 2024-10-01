@@ -102,13 +102,11 @@ public class playa : MonoBehaviour
         yield return new WaitForSeconds(2f);
         rb.velocity = Vector3.zero; // Reset velocity
         rb.angularVelocity = Vector3.zero; // Reset angular velocity
-        playaArm.GetComponent<Rigidbody>().MoveRotation(Quaternion.Euler(Vector3.forward));
-        playaArm.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        playaArm.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         rb.centerOfMass = new Vector3(0f, -0.27f);
         rb.constraints = defaultConstraints;
         rb.MovePosition(spawnPoint.transform.position);
         rb.MoveRotation(spawnPoint.transform.rotation);
+        playaArm.GetComponent<arm>().resetRot();
         health = 100;
         ded = false;
     }
@@ -161,13 +159,13 @@ public class playa : MonoBehaviour
         if (playaNumber == 2)
         {
             // PLAYER 2
-            if (Input.GetKeyUp(KeyCode.P))
+            if (Input.GetKeyUp(KeyCode.O))
             {
                 rb.AddForce(transform.up * jumpForce);
                 grounded = false;
                 return;
             }
-            else if (Input.GetKeyUp(KeyCode.O))
+            else if (Input.GetKeyUp(KeyCode.I))
             {
                 rb.AddForce(transform.up * jumpForce);
                 grounded = false;
@@ -212,7 +210,7 @@ public class playa : MonoBehaviour
         }
 
         // PLAYER 2
-        if (Input.GetKey(KeyCode.P) && playaNumber == 2)
+        if (Input.GetKey(KeyCode.O) && playaNumber == 2)
         {
             if (grounded && (zrot > 300 || zrot < 90))
             {
@@ -228,7 +226,7 @@ public class playa : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.O) && playaNumber == 2)
+        if (Input.GetKey(KeyCode.I) && playaNumber == 2)
         {
             if (grounded && (zrot > 270 || zrot < 60))
             {

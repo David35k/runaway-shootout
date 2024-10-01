@@ -79,7 +79,7 @@ public class gun : MonoBehaviour
             {
                 shoot();
             }
-            if (Input.GetKey(KeyCode.I) && equipped && playaNumber == 2 && Time.time > nextFire)
+            if (Input.GetKey(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
             {
                 shoot();
             }
@@ -90,7 +90,7 @@ public class gun : MonoBehaviour
             {
                 shoot();
             }
-            if (Input.GetKeyDown(KeyCode.I) && equipped && playaNumber == 2 && Time.time > nextFire)
+            if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
             {
                 shoot();
             }

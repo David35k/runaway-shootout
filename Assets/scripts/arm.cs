@@ -13,10 +13,11 @@ public class arm : MonoBehaviour
     private bool tracking = false;
     private playa playerScript;
     public float swingForce = 100f;
-
+    private Quaternion startRot;
     void Start()
     {
         playerScript = transform.parent.gameObject.GetComponent<playa>();
+        startRot = transform.rotation;
     }
 
     void OnTriggerStay(Collider collider)
@@ -57,5 +58,13 @@ public class arm : MonoBehaviour
     {
         tracking = false;
         GetComponent<Rigidbody>().AddTorque(0f, 0f, -1 * swingForce, ForceMode.Impulse);
+    }
+
+    public void resetRot()
+    {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        GetComponent<Rigidbody>().MoveRotation(startRot);
+        // transform.rotation = startRot;
     }
 }
