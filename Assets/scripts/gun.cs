@@ -66,7 +66,6 @@ public class gun : MonoBehaviour
         // epic mechanic
         if (collider.gameObject.GetComponent<bullet>() && collider.gameObject.GetComponent<bullet>().missile && meele)
         {
-            Debug.Log("epic ninja moment");
             collider.gameObject.GetComponent<bullet>().kaboom();
         }
     }
@@ -151,14 +150,14 @@ public class gun : MonoBehaviour
 
                     GameObject bullet = Instantiate(bulletPrefab, spawnPositionOffset, bulletSpawn.transform.rotation * Quaternion.Euler(Random.insideUnitSphere));
                     bullet.GetComponent<bullet>().playaFired = playaNumber;
-                    bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget);
+                    bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget, transform.parent.transform.parent.transform.parent.gameObject);
                 }
             }
             else
             {
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
                 bullet.GetComponent<bullet>().playaFired = playaNumber;
-                bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget);
+                bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget, transform.parent.transform.parent.transform.parent.gameObject);
             }
 
             if (muzzleFlash)

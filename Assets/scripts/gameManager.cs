@@ -9,7 +9,7 @@ public class gameManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = 300;
+        Application.targetFrameRate = 60;
 #endif
     }
 

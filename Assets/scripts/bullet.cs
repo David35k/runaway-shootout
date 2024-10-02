@@ -45,14 +45,16 @@ public class bullet : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player" && !uselessAhh)
         {
-            collision.gameObject.GetComponent<playa>().health -= damage;
+            playa player = collision.gameObject.GetComponent<playa>();
+            player.health -= damage;
+            Instantiate(player.bloodEffect, transform.position, transform.rotation, collision.gameObject.transform);
             if (missile)
             {
                 kaboom();
             }
             if (stun)
             {
-                collision.gameObject.GetComponent<playa>().stun(stunLength);
+                player.stun(stunLength);
             }
             uselessAhh = true;
         }
@@ -116,7 +118,7 @@ public class bullet : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void shoot(GameObject bulletSpawn, float bulletSpeed, GameObject target)
+    public void shoot(GameObject bulletSpawn, float bulletSpeed, GameObject target, GameObject thaplaya)
     {
         // shoot da bullet!!!
         GetComponent<Rigidbody>().velocity = bulletSpawn.transform.up * bulletSpeed;
@@ -125,8 +127,16 @@ public class bullet : MonoBehaviour
         {
             // bombs away!!!!
             tracking = true;
-            currentTarget = target;
-            // GetComponent<Rigidbody>().AddForce(transform.forward * flyForce, ForceMode.Force);
+
+            // the big funny, if no one around it tracks you
+            if (target)
+            {
+                currentTarget = target;
+            }
+            else
+            {
+                currentTarget = thaplaya;
+            }
         }
     }
 }

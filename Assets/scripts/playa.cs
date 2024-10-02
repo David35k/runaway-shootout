@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class playa : MonoBehaviour
@@ -19,6 +20,11 @@ public class playa : MonoBehaviour
     public GameObject spawnPoint;
     private RigidbodyConstraints defaultConstraints;
     bool stunned = false;
+    public GameObject bloodEffect;
+    public GameObject groundEffect;
+    private float jumpCooldown = 0.2f;  // Adjust as needed
+    private float lastJumpTime = 0f;
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -120,55 +126,51 @@ public class playa : MonoBehaviour
 
     void handleGround()
     {
-        grounded = false;
+        // grounded = false;
         Collider[] cols = Physics.OverlapSphere(transform.position, groundDetectDist);
         foreach (Collider col in cols)
         {
             if (col.gameObject.tag == "ground" || col.gameObject.tag == "bullet" || (col.gameObject.name == "render for playa" && !col.gameObject.transform.IsChildOf(transform)))
             {
+                if (!grounded)
+                {
+                    Vector3 effectPos = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
+                    Instantiate(groundEffect, effectPos, Quaternion.Euler(0, 0, 0));
+                }
                 grounded = true;
                 rb.angularDrag = lowAngularDrag;
+                return;
             }
         }
 
-        if (!grounded)
-        {
-            rb.angularDrag = highAngularDrag;
-        }
+        grounded = false;
+        rb.angularDrag = highAngularDrag;
+
     }
 
     void handleJump()
     {
+        // Prevent double jump in the same frame
+        if (Time.time - lastJumpTime < jumpCooldown) return;
+
         // PLAYER 1
         if (playaNumber == 1)
         {
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.W))
             {
                 rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-                return;
-            }
-            else if (Input.GetKeyUp(KeyCode.W))
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
+                lastJumpTime = Time.time;
                 return;
             }
         }
 
+        // PLAYER 2
         if (playaNumber == 2)
         {
-            // PLAYER 2
-            if (Input.GetKeyUp(KeyCode.O))
+            if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.I))
             {
                 rb.AddForce(transform.up * jumpForce);
-                grounded = false;
-                return;
-            }
-            else if (Input.GetKeyUp(KeyCode.I))
-            {
-                rb.AddForce(transform.up * jumpForce);
-                grounded = false;
+                lastJumpTime = Time.time;
                 return;
             }
         }
