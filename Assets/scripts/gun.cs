@@ -26,11 +26,12 @@ public class gun : MonoBehaviour
     // also only applies when shotgun is set to true
     public float spreadAmount = 1f;
     public float recoilForce = 0f;
-
+    private ParticleSystem muzzleFlash;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
+        muzzleFlash = GetComponent<ParticleSystem>();
     }
 
     void OnTriggerEnter(Collider collider)
@@ -127,6 +128,7 @@ public class gun : MonoBehaviour
 
         if (bulletPrefab && bulletSpawn)
         {
+
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)
             {
@@ -157,6 +159,11 @@ public class gun : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
                 bullet.GetComponent<bullet>().playaFired = playaNumber;
                 bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget);
+            }
+
+            if (muzzleFlash)
+            {
+                muzzleFlash.Play();
             }
 
             nextFire = Time.time + fireRate;

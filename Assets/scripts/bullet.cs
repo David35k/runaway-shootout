@@ -19,6 +19,8 @@ public class bullet : MonoBehaviour
     private float explosionForce = 2000f;
     public bool stun = false;
     public float stunLength = 3f;
+    public GameObject particleThing;
+    // private ParticleSystem particle;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +36,12 @@ public class bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "ground" && !uselessAhh)
         {
-            Destroy(gameObject, 1f);
             if (missile)
             {
                 kaboom();
             }
             uselessAhh = true;
+            Destroy(gameObject, 1f);
         }
         if (collision.gameObject.tag == "Player" && !uselessAhh)
         {
@@ -79,6 +81,11 @@ public class bullet : MonoBehaviour
 
     public void kaboom()
     {
+        if (particleThing)
+        {
+            Instantiate(particleThing, transform.position, transform.rotation);
+        }
+
         // Find all objects within the explosion radius
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
