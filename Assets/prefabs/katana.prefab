@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f73fd505ae37649a25f7d6d86885cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5431365635955119874, guid: b2b457c996c94a04c83f6b9a00021f71, type: 3}
+  bulletPrefab: {fileID: 0}
   bulletSpawn: {fileID: 0}
   bulletSpeed: 0
   equipped: 0
@@ -421,6 +421,7 @@ MonoBehaviour:
   shellCount: 0
   spreadAmount: 1
   recoilForce: 0
+  blud: {fileID: 6703664034034368468, guid: 91a7a5b11ab148044a04b8fe5a23fddc, type: 3}
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

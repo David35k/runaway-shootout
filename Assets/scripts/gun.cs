@@ -27,6 +27,7 @@ public class gun : MonoBehaviour
     public float spreadAmount = 1f;
     public float recoilForce = 0f;
     private ParticleSystem muzzleFlash;
+    public GameObject blud;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -50,6 +51,12 @@ public class gun : MonoBehaviour
             // big ouch - make sure its equipped bruh
             if (meele && equipped)
             {
+                if (blud)
+                {
+                    Vector3 triggerPoint = (transform.position + collider.transform.position) / 2;
+                    Instantiate(blud, triggerPoint, Quaternion.identity, collider.transform);
+                }
+
                 collider.transform.parent.gameObject.GetComponent<playa>().health -= 100;
                 GetComponent<BoxCollider>().isTrigger = false;
                 drop();
@@ -64,7 +71,7 @@ public class gun : MonoBehaviour
         }
 
         // epic mechanic
-        if (collider.gameObject.GetComponent<bullet>() && collider.gameObject.GetComponent<bullet>().missile && meele)
+        if (collider.gameObject.GetComponent<bullet>() && collider.gameObject.GetComponent<bullet>().missile && meele && equipped)
         {
             collider.gameObject.GetComponent<bullet>().kaboom();
         }
