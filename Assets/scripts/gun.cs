@@ -43,6 +43,7 @@ public class gun : MonoBehaviour
             if (thrown)
             {
                 collider.transform.parent.gameObject.GetComponent<playa>().health -= 5;
+                collider.transform.parent.gameObject.GetComponent<playa>().updateHealthBar();
                 thrown = false;
                 GetComponent<BoxCollider>().isTrigger = false;
                 Destroy(gameObject, 5f);
@@ -58,6 +59,7 @@ public class gun : MonoBehaviour
                 }
 
                 collider.transform.parent.gameObject.GetComponent<playa>().health -= 100;
+                collider.transform.parent.gameObject.GetComponent<playa>().updateHealthBar();
                 GetComponent<BoxCollider>().isTrigger = false;
                 drop();
                 Destroy(gameObject, 5f);

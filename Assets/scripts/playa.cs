@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Linq.Expressions;
+using UnityEngine.UI;
 using UnityEngine;
+using DG.Tweening;
 
 public class playa : MonoBehaviour
 {
@@ -22,19 +23,22 @@ public class playa : MonoBehaviour
     bool stunned = false;
     public GameObject bloodEffect;
     public GameObject groundEffect;
-    private float jumpCooldown = 0.2f;  // Adjust as needed
+    private float jumpCooldown = 0.2f;
     private float lastJumpTime = 0f;
+
+    public GameObject healthBarFill;
+    private float lastHealthUpdateTime = 0f; // Track the last time the health was updated
+    public float healthBarDisappearTime = 3f; // Time in seconds before the health bar disappears
+    private CanvasGroup healthBarCanvasGroup; // To control visibility
 
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         defaultConstraints = rb.constraints;
-    }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, groundDetectDist);
+        // Initialize the health bar canvas group and hide it initially
+        healthBarCanvasGroup = healthBarFill.GetComponentInParent<CanvasGroup>();
+        healthBarCanvasGroup.alpha = 0;
     }
 
     // Update is called once per frame
@@ -47,7 +51,6 @@ public class playa : MonoBehaviour
             {
                 handleJump();
             }
-
             if (schlong != null && !schlong.GetComponent<gun>().equipped)
             {
                 schlong = null;
@@ -55,12 +58,16 @@ public class playa : MonoBehaviour
         }
     }
 
-    // frame independent type shi
     void FixedUpdate()
     {
         if (!ded)
         {
-            // check if ded
+            // Check if the health bar should disappear after inactivity
+            if (Time.time - lastHealthUpdateTime > healthBarDisappearTime && healthBarCanvasGroup.alpha == 1)
+            {
+                healthBarCanvasGroup.DOFade(0, 0.1f); // Fade out the health bar
+            }
+
             if (health <= 0)
             {
                 died();
@@ -73,7 +80,21 @@ public class playa : MonoBehaviour
             }
         }
     }
+    public void updateHealthBar()
+    {
+        // Update health bar fill amount
+        float fillAmount = health / 100;
+        healthBarFill.GetComponent<Image>().DOFillAmount(fillAmount, 0.3f);
 
+        // Show health bar if it needs updating
+        if (healthBarCanvasGroup.alpha == 0)
+        {
+            healthBarCanvasGroup.DOFade(1, 0.1f); // Fade in the health bar
+        }
+
+        // Reset the last update time whenever health is updated
+        lastHealthUpdateTime = Time.time;
+    }
     public void stun(float length)
     {
         stunned = true;
@@ -100,6 +121,7 @@ public class playa : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.centerOfMass = new Vector3(0f, 0f);
         rb.AddTorque(Random.insideUnitSphere * jumpForce, ForceMode.Impulse);
+        healthBarCanvasGroup.DOFade(0, 0.5f); // Fade out the health bar
         StartCoroutine(delayedDed());
     }
 
@@ -114,6 +136,7 @@ public class playa : MonoBehaviour
         rb.MoveRotation(spawnPoint.transform.rotation);
         playaArm.GetComponent<arm>().resetRot();
         health = 100;
+        updateHealthBar();
         ded = false;
     }
 

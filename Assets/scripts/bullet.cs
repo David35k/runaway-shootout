@@ -47,6 +47,7 @@ public class bullet : MonoBehaviour
         {
             playa player = collision.gameObject.GetComponent<playa>();
             player.health -= damage;
+            player.updateHealthBar();
             Instantiate(player.bloodEffect, transform.position, transform.rotation, collision.gameObject.transform);
             if (missile)
             {
@@ -111,6 +112,7 @@ public class bullet : MonoBehaviour
                 if (nearbyObject.gameObject.tag == "Player")
                 {
                     nearbyObject.gameObject.GetComponent<playa>().health -= damage;
+                    nearbyObject.gameObject.GetComponent<playa>().updateHealthBar();
                 }
             }
         }
