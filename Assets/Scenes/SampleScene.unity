@@ -2275,7 +2275,7 @@ PrefabInstance:
     - target: {fileID: 4665777984630592909, guid: 7378636828250e645a189e0a8774be20, type: 3}
       propertyPath: guns.Array.data[0]
       value: 
-      objectReference: {fileID: 4076597938311034799, guid: 72f020904164d31459af5942dd469a3a, type: 3}
+      objectReference: {fileID: 4076597938311034799, guid: ad01fbd86a3318848bdec6f4907fbb22, type: 3}
     - target: {fileID: 6450009558131114261, guid: 7378636828250e645a189e0a8774be20, type: 3}
       propertyPath: m_Name
       value: pickup (9)

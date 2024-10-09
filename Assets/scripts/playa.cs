@@ -25,11 +25,14 @@ public class playa : MonoBehaviour
     public GameObject groundEffect;
     private float jumpCooldown = 0.2f;
     private float lastJumpTime = 0f;
-
     public GameObject healthBarFill;
+    public GameObject shootBarFill;
     private float lastHealthUpdateTime = 0f; // Track the last time the health was updated
     public float healthBarDisappearTime = 3f; // Time in seconds before the health bar disappears
     private CanvasGroup healthBarCanvasGroup; // To control visibility
+    private float lastShootUpdateTime = 0f; // Track the last time the health was updated
+    public float shootBarDisappearTime = 0.5f; // Time in seconds before the health bar disappears
+    private CanvasGroup shootBarCanvasGroup; // To control visibility
 
     void Awake()
     {
@@ -39,6 +42,9 @@ public class playa : MonoBehaviour
         // Initialize the health bar canvas group and hide it initially
         healthBarCanvasGroup = healthBarFill.GetComponentInParent<CanvasGroup>();
         healthBarCanvasGroup.alpha = 0;
+
+        shootBarCanvasGroup = shootBarFill.GetComponentInParent<CanvasGroup>();
+        shootBarCanvasGroup.alpha = 0;
     }
 
     // Update is called once per frame
@@ -65,7 +71,12 @@ public class playa : MonoBehaviour
             // Check if the health bar should disappear after inactivity
             if (Time.time - lastHealthUpdateTime > healthBarDisappearTime && healthBarCanvasGroup.alpha == 1)
             {
-                healthBarCanvasGroup.DOFade(0, 0.1f); // Fade out the health bar
+                healthBarCanvasGroup.DOFade(0, 0.25f); // Fade out the health bar
+            }
+            // Check if the shoot bar should disappear after inactivity
+            if (Time.time - lastShootUpdateTime > shootBarDisappearTime && shootBarCanvasGroup.alpha == 1)
+            {
+                shootBarCanvasGroup.DOFade(0, 0.1f); // Fade out the shoot bar
             }
 
             if (health <= 0)
@@ -95,6 +106,29 @@ public class playa : MonoBehaviour
         // Reset the last update time whenever health is updated
         lastHealthUpdateTime = Time.time;
     }
+
+    public void updateShootBar(float fireRate, float thing)
+    {
+        if (thing > 0)
+        {
+            float fillAmount = thing / fireRate;
+            shootBarFill.GetComponent<Image>().DOFillAmount(fillAmount, 0.01f);
+
+            // Show shoot bar if it needs updating
+            if (shootBarCanvasGroup.alpha == 0)
+            {
+                shootBarCanvasGroup.alpha = 1;
+            }
+
+            // Reset the last update time whenever shoot is updated
+            lastShootUpdateTime = Time.time;
+        }
+        else
+        {
+            shootBarCanvasGroup.alpha = 0;
+        }
+
+    }
     public void stun(float length)
     {
         stunned = true;
@@ -121,7 +155,7 @@ public class playa : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.centerOfMass = new Vector3(0f, 0f);
         rb.AddTorque(Random.insideUnitSphere * jumpForce, ForceMode.Impulse);
-        healthBarCanvasGroup.DOFade(0, 0.5f); // Fade out the health bar
+        healthBarCanvasGroup.DOFade(0, 0.25f); // Fade out the health bar
         StartCoroutine(delayedDed());
     }
 

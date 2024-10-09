@@ -82,6 +82,13 @@ public class gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.parent)
+        {
+            // Debug.Log((nextFire - Time.time) / fireRate);
+            transform.parent.transform.parent.transform.parent.GetComponent<playa>().updateShootBar(fireRate, nextFire - Time.time);
+        }
+
+
         if (automatic)
         {
             if (Input.GetKey(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
@@ -136,7 +143,6 @@ public class gun : MonoBehaviour
 
         if (bulletPrefab && bulletSpawn)
         {
-
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)
             {
