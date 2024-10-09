@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-
+    public GameObject[] cameras;
     void Awake()
     {
 #if UNITY_EDITOR
@@ -23,5 +23,10 @@ public class gameManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void shakeEm(float shakeDuration, float shakeMagnitude, int playerNumber)
+    {
+        cameras[playerNumber - 1].GetComponent<CameraController>().StartShake(shakeDuration, shakeMagnitude);
     }
 }

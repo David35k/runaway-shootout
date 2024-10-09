@@ -33,6 +33,7 @@ public class playa : MonoBehaviour
     private float lastShootUpdateTime = 0f; // Track the last time the health was updated
     public float shootBarDisappearTime = 0.5f; // Time in seconds before the health bar disappears
     private CanvasGroup shootBarCanvasGroup; // To control visibility
+    public GameObject gameManager;
 
     void Awake()
     {

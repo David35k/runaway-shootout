@@ -15,7 +15,8 @@ public class bullet : MonoBehaviour
     private GameObject currentTarget;
     // only applies if missile is set to true
     public float flyForce = 100f;
-    private float explosionRadius = 3.75f;
+    private float explosionRadius = 20f;
+    private float sussyRadius = 3.75f;
     private float explosionForce = 2000f;
     public bool stun = false;
     public float stunLength = 3f;
@@ -80,6 +81,8 @@ public class bullet : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, sussyRadius);
     }
 
     public void kaboom()
@@ -98,7 +101,7 @@ public class bullet : MonoBehaviour
             float distance = Vector3.Distance(transform.position, nearbyObject.transform.position);
 
             // Check if the object is within the explosion radius
-            if (distance <= explosionRadius)
+            if (distance <= sussyRadius)
             {
                 // Apply force to any objects with a Rigidbody
                 Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
@@ -113,6 +116,14 @@ public class bullet : MonoBehaviour
                 {
                     nearbyObject.gameObject.GetComponent<playa>().health -= damage;
                     nearbyObject.gameObject.GetComponent<playa>().updateHealthBar();
+                    nearbyObject.gameObject.GetComponent<playa>().gameManager.GetComponent<gameManager>().shakeEm(0.5f, 0.5f, nearbyObject.gameObject.GetComponent<playa>().playaNumber);
+                }
+            }
+            else
+            {
+                if (nearbyObject.gameObject.tag == "Player")
+                {
+                    nearbyObject.gameObject.GetComponent<playa>().gameManager.GetComponent<gameManager>().shakeEm(0.5f, 1f / distance, nearbyObject.gameObject.GetComponent<playa>().playaNumber);
                 }
             }
         }

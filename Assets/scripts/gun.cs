@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class gun : MonoBehaviour
@@ -28,6 +29,9 @@ public class gun : MonoBehaviour
     public float recoilForce = 0f;
     private ParticleSystem muzzleFlash;
     public GameObject blud;
+    public float shootDelay = 0f;
+    private bool waiting = false;
+    public bool shake = false;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -84,31 +88,32 @@ public class gun : MonoBehaviour
     {
         if (transform.parent)
         {
-            // Debug.Log((nextFire - Time.time) / fireRate);
             transform.parent.transform.parent.transform.parent.GetComponent<playa>().updateShootBar(fireRate, nextFire - Time.time);
         }
 
-
-        if (automatic)
+        if (!waiting)
         {
-            if (Input.GetKey(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
+            if (automatic)
             {
-                shoot();
+                if (Input.GetKey(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
+                if (Input.GetKey(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
             }
-            if (Input.GetKey(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+            else
             {
-                shoot();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
-            {
-                shoot();
-            }
-            if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
-            {
-                shoot();
+                if (Input.GetKeyDown(KeyCode.R) && equipped && playaNumber == 1 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
+                if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
             }
         }
     }
@@ -130,6 +135,14 @@ public class gun : MonoBehaviour
         rb.AddTorque(Random.insideUnitSphere * spinForce, ForceMode.Impulse);
         thrown = true;
         equipped = false;
+    }
+
+    IEnumerator delayShoot()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(shootDelay);
+        waiting = false;
+        shoot();
     }
 
     void shoot()
@@ -178,6 +191,11 @@ public class gun : MonoBehaviour
             if (muzzleFlash)
             {
                 muzzleFlash.Play();
+            }
+
+            if (shake)
+            {
+                transform.parent.transform.parent.transform.parent.GetComponent<playa>().gameManager.GetComponent<gameManager>().shakeEm(0.5f, 0.1f, playaNumber);
             }
 
             nextFire = Time.time + fireRate;
