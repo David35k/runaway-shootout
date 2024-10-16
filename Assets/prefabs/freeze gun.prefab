@@ -98,6 +98,9 @@ MonoBehaviour:
   shellCount: 0
   spreadAmount: 1
   recoilForce: 100
+  blud: {fileID: 0}
+  shootDelay: 0
+  shake: 0
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

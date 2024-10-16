@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         if (player != null && !isShaking)
         {
             // Camera follows the player
-            transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y + 1.25f, transform.position.z), Time.deltaTime * cameraSpeed);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y + 2.5f, transform.position.z), Time.deltaTime * cameraSpeed);
         }
     }
 
@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
             Vector3 randomOffset = Random.insideUnitSphere * shakeMagnitude;
             randomOffset.z = 0; // Keep the z-axis unaffected
 
-            transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y + 1.25f, transform.position.z), Time.deltaTime * cameraSpeed) + randomOffset;
+            transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y + 2.5f, transform.position.z), Time.deltaTime * cameraSpeed) + randomOffset;
             elapsedTime += Time.deltaTime;
 
             yield return null;

@@ -8,6 +8,7 @@ public class gameManager : MonoBehaviour
     public GameObject[] players;
     public GameObject coolTrigger;
     public GameObject escape;
+    public GameObject winnerText;
     void Awake()
     {
 #if UNITY_EDITOR
@@ -20,6 +21,8 @@ public class gameManager : MonoBehaviour
             players[i].GetComponent<Rigidbody>().MovePosition(players[i].GetComponent<playa>().spawnPoint.transform.position);
             players[i].GetComponent<Rigidbody>().MoveRotation(players[i].GetComponent<playa>().spawnPoint.transform.rotation);
         }
+
+        winnerText.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -39,6 +42,13 @@ public class gameManager : MonoBehaviour
         else
         {
             Time.timeScale = 1f;
+        }
+
+        // winna winna chicken dinna
+        if (escape.GetComponent<winTrigger>().won)
+        {
+            Time.timeScale = 1f;
+            winnerText.SetActive(true);
         }
     }
 
