@@ -22,6 +22,7 @@ public class playa : MonoBehaviour
     private RigidbodyConstraints defaultConstraints;
     bool stunned = false;
     public GameObject bloodEffect;
+    public GameObject freezeEffect;
     public GameObject groundEffect;
     private float jumpCooldown = 0.2f;
     private float lastJumpTime = 0f;
@@ -34,6 +35,7 @@ public class playa : MonoBehaviour
     public float shootBarDisappearTime = 0.5f; // Time in seconds before the health bar disappears
     private CanvasGroup shootBarCanvasGroup; // To control visibility
     public GameObject gameManager;
+    public GameObject ammoText;
 
     void Awake()
     {

@@ -57,6 +57,7 @@ public class bullet : MonoBehaviour
             if (stun)
             {
                 player.stun(stunLength);
+                Instantiate(player.freezeEffect, transform.position, transform.rotation, collision.gameObject.transform);
             }
             uselessAhh = true;
         }

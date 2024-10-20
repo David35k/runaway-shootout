@@ -156,6 +156,14 @@ public class gun : MonoBehaviour
 
         if (bulletPrefab && bulletSpawn)
         {
+            if (ammo == 1)
+            {
+                transform.parent.transform.parent.transform.parent.GetComponent<playa>().ammoText.SetActive(true);
+            }
+            else
+            {
+                transform.parent.transform.parent.transform.parent.GetComponent<playa>().ammoText.SetActive(false);
+            }
             // out of ammo, throw that bish
             if (ammo == 0 && !thrown)
             {

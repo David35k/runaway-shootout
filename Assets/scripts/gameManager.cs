@@ -6,7 +6,7 @@ public class gameManager : MonoBehaviour
 {
     public GameObject[] cameras;
     public GameObject[] players;
-    public GameObject coolTrigger;
+    public GameObject[] coolTriggers;
     public GameObject escape;
     public GameObject winnerText;
     void Awake()
@@ -34,21 +34,24 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // triger the coolness!!!!!!!!!!!!!!!!!!!!!! 😎😎😎😎
-        if (coolTrigger.GetComponent<endTrigger>().escaping)
-        {
-            Time.timeScale = 0.3f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
-
         // winna winna chicken dinna
         if (escape.GetComponent<winTrigger>().won)
         {
-            Time.timeScale = 1f;
+            Time.timeScale = 0.05f;
             winnerText.SetActive(true);
+        }
+
+        for (int i = 0; i < coolTriggers.Length; i++)
+        {
+            // triger the coolness!!!!!!!!!!!!!!!!!!!!!! 😎😎😎😎
+            if (coolTriggers[i].GetComponent<endTrigger>().escaping)
+            {
+                Time.timeScale = 0.3f;
+                return;
+            }
+
+            Time.timeScale = 1f;
+
         }
     }
 
