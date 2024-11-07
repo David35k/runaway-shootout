@@ -40,19 +40,23 @@ public class gameManager : MonoBehaviour
             Time.timeScale = 0.05f;
             winnerText.SetActive(true);
         }
-
-        for (int i = 0; i < coolTriggers.Length; i++)
+        else
         {
-            // triger the coolness!!!!!!!!!!!!!!!!!!!!!! 😎😎😎😎
-            if (coolTriggers[i].GetComponent<endTrigger>().escaping)
+            for (int i = 0; i < coolTriggers.Length; i++)
             {
-                Time.timeScale = 0.3f;
-                return;
+                // triger the coolness!!!!!!!!!!!!!!!!!!!!!! 😎😎😎😎
+                if (coolTriggers[i].GetComponent<endTrigger>().escaping)
+                {
+                    Time.timeScale = 0.3f;
+                    return;
+                }
+
+                Time.timeScale = 1f;
+
             }
-
-            Time.timeScale = 1f;
-
         }
+
+
     }
 
     public void shakeEm(float shakeDuration, float shakeMagnitude, int playerNumber)

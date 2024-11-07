@@ -20,7 +20,7 @@ public class playa : MonoBehaviour
     public bool ded = false;
     public GameObject spawnPoint;
     private RigidbodyConstraints defaultConstraints;
-    bool stunned = false;
+    private bool stunned = false;
     public GameObject bloodEffect;
     public GameObject freezeEffect;
     public GameObject groundEffect;
@@ -36,7 +36,7 @@ public class playa : MonoBehaviour
     private CanvasGroup shootBarCanvasGroup; // To control visibility
     public GameObject gameManager;
     public GameObject ammoText;
-
+    private bool pauled = false;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -138,13 +138,28 @@ public class playa : MonoBehaviour
         rb.isKinematic = true;
         StartCoroutine(unfreeze(length));
     }
-
     IEnumerator unfreeze(float length)
     {
         yield return new WaitForSeconds(length);
         rb.isKinematic = false;
         stunned = false;
     }
+
+    public void paul(float length)
+    {
+        Debug.Log("haha get pauled loser " + playaNumber);
+        pauled = true;
+        transform.localScale = new Vector3(1f, 0.5f, 1f);
+        StartCoroutine(unpaul(length));
+    }
+
+    IEnumerator unpaul(float length)
+    {
+        yield return new WaitForSeconds(length);
+        transform.localScale = new Vector3(1f, 1f, 1f);
+        pauled = false;
+    }
+
 
     void died()
     {

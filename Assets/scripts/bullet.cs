@@ -21,7 +21,8 @@ public class bullet : MonoBehaviour
     public bool stun = false;
     public float stunLength = 3f;
     public GameObject particleThing;
-    // private ParticleSystem particle;
+    // if you get hit it turns you into paul lmao
+    public bool paul;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,11 @@ public class bullet : MonoBehaviour
             {
                 player.stun(stunLength);
                 Instantiate(player.freezeEffect, transform.position, transform.rotation, collision.gameObject.transform);
+            }
+            if (paul)
+            {
+                player.paul(5f); // become paul for 5 seconds, try not to kys :)
+                // Instantiate(player.paulEffect, transform.position, transform.rotation, collision.gameObject.transform);
             }
             uselessAhh = true;
         }

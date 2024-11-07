@@ -249,9 +249,10 @@ MonoBehaviour:
   damage: 5
   missile: 0
   flyForce: 100
-  stun: 1
+  stun: 0
   stunLength: 3
   particleThing: {fileID: 0}
+  paul: 1
 --- !u!96 &4567146635514015154
 TrailRenderer:
   serializedVersion: 3
