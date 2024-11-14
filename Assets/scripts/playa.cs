@@ -233,6 +233,7 @@ public class playa : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.W))
             {
+                GetComponent<AudioSource>().Play();
                 rb.AddForce(transform.up * jumpForce);
                 lastJumpTime = Time.time;
                 return;
@@ -244,6 +245,7 @@ public class playa : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.I))
             {
+                GetComponent<AudioSource>().Play();
                 rb.AddForce(transform.up * jumpForce);
                 lastJumpTime = Time.time;
                 return;

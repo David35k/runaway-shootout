@@ -13,7 +13,7 @@ public class gameManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 0;
 #endif
 
         for (int i = 0; i < players.Length; i++)
@@ -52,11 +52,8 @@ public class gameManager : MonoBehaviour
                 }
 
                 Time.timeScale = 1f;
-
             }
         }
-
-
     }
 
     public void shakeEm(float shakeDuration, float shakeMagnitude, int playerNumber)
