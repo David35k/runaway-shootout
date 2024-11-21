@@ -196,6 +196,11 @@ public class gun : MonoBehaviour
                 bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget, transform.parent.transform.parent.transform.parent.gameObject);
             }
 
+            if (GetComponent<AudioSource>())
+            {
+                GetComponent<AudioSource>().Play();
+            }
+
             if (muzzleFlash)
             {
                 muzzleFlash.Play();

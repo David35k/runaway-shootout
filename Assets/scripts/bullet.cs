@@ -23,6 +23,7 @@ public class bullet : MonoBehaviour
     public GameObject particleThing;
     // if you get hit it turns you into paul lmao
     public bool paul;
+    public GameObject hitMarker;
 
     // Start is called before the first frame update
     void Start()
@@ -48,9 +49,11 @@ public class bullet : MonoBehaviour
         if (collision.gameObject.tag == "Player" && !uselessAhh)
         {
             playa player = collision.gameObject.GetComponent<playa>();
-            player.health -= damage;
-            player.updateHealthBar();
+            player.ouch(damage);
             Instantiate(player.bloodEffect, transform.position, transform.rotation, collision.gameObject.transform);
+            GameObject hitshit = Instantiate(hitMarker, transform.position, transform.rotation, collision.gameObject.transform);
+            Destroy(hitshit, 0.1f);
+
             if (missile)
             {
                 kaboom();
@@ -118,11 +121,9 @@ public class bullet : MonoBehaviour
                     rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
                 }
 
-                // Check if the object has a health system and apply damage
                 if (nearbyObject.gameObject.tag == "Player")
                 {
-                    nearbyObject.gameObject.GetComponent<playa>().health -= damage;
-                    nearbyObject.gameObject.GetComponent<playa>().updateHealthBar();
+                    nearbyObject.gameObject.GetComponent<playa>().ouch(damage);
                     nearbyObject.gameObject.GetComponent<playa>().gameManager.GetComponent<gameManager>().shakeEm(0.5f, 0.5f, nearbyObject.gameObject.GetComponent<playa>().playaNumber);
                 }
             }

@@ -889,6 +889,10 @@ MonoBehaviour:
   shootBarDisappearTime: 0.5
   gameManager: {fileID: 0}
   ammoText: {fileID: 6214904861887631222}
+  audioSource: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: cf9b2e4a46ca8974cb911d3b88a38e0a, type: 3}
+  damageSound: {fileID: 8300000, guid: 2de9726291963e248b0a5d1000451509, type: 3}
+  deathSound: {fileID: 8300000, guid: 158b9849089e18c409f8c5eaa77e4301, type: 3}
 --- !u!82 &3838197863006001323
 AudioSource:
   m_ObjectHideFlags: 0

@@ -37,6 +37,10 @@ public class playa : MonoBehaviour
     public GameObject gameManager;
     public GameObject ammoText;
     private bool pauled = false;
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip damageSound;
+    public AudioClip deathSound;
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -48,6 +52,8 @@ public class playa : MonoBehaviour
 
         shootBarCanvasGroup = shootBarFill.GetComponentInParent<CanvasGroup>();
         shootBarCanvasGroup.alpha = 0;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -94,6 +100,14 @@ public class playa : MonoBehaviour
             }
         }
     }
+
+    public void ouch(float damage)
+    {
+        audioSource.PlayOneShot(damageSound);
+        health -= damage;
+        updateHealthBar();
+    }
+
     public void updateHealthBar()
     {
         // Update health bar fill amount
@@ -163,6 +177,7 @@ public class playa : MonoBehaviour
 
     void died()
     {
+        audioSource.PlayOneShot(deathSound);
         ded = true;
         // throw that bish away, ded people dont need guns
         if (schlong != null)
@@ -233,7 +248,7 @@ public class playa : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.W))
             {
-                GetComponent<AudioSource>().Play();
+                audioSource.PlayOneShot(jumpSound);
                 rb.AddForce(transform.up * jumpForce);
                 lastJumpTime = Time.time;
                 return;
@@ -245,7 +260,7 @@ public class playa : MonoBehaviour
         {
             if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.I))
             {
-                GetComponent<AudioSource>().Play();
+                audioSource.PlayOneShot(jumpSound);
                 rb.AddForce(transform.up * jumpForce);
                 lastJumpTime = Time.time;
                 return;
