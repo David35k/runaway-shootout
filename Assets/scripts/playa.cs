@@ -36,11 +36,12 @@ public class playa : MonoBehaviour
     private CanvasGroup shootBarCanvasGroup; // To control visibility
     public GameObject gameManager;
     public GameObject ammoText;
-    private bool pauled = false;
     public AudioSource audioSource;
     public AudioClip jumpSound;
     public AudioClip damageSound;
     public AudioClip deathSound;
+    public bool ziplining = false;
+
     void Awake()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -62,7 +63,7 @@ public class playa : MonoBehaviour
         if (!ded && !stunned)
         {
             handleGround();
-            if (grounded)
+            if (grounded && !ziplining)
             {
                 handleJump();
             }
@@ -94,7 +95,7 @@ public class playa : MonoBehaviour
             }
 
             float zrot = transform.rotation.eulerAngles.z;
-            if (!stunned)
+            if (!stunned && !ziplining)
             {
                 handleInput(zrot);
             }
@@ -162,7 +163,6 @@ public class playa : MonoBehaviour
     public void paul(float length)
     {
         Debug.Log("haha get pauled loser " + playaNumber);
-        pauled = true;
         transform.localScale = new Vector3(1f, 0.5f, 1f);
         StartCoroutine(unpaul(length));
     }
@@ -171,12 +171,12 @@ public class playa : MonoBehaviour
     {
         yield return new WaitForSeconds(length);
         transform.localScale = new Vector3(1f, 1f, 1f);
-        pauled = false;
     }
 
 
     void died()
     {
+        ammoText.SetActive(false);
         audioSource.PlayOneShot(deathSound);
         ded = true;
         // throw that bish away, ded people dont need guns

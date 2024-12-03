@@ -32,6 +32,7 @@ public class gun : MonoBehaviour
     public float shootDelay = 0f;
     private bool waiting = false;
     public bool shake = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -185,14 +186,14 @@ public class gun : MonoBehaviour
                     Vector3 spawnPositionOffset = bulletSpawn.transform.position + Vector3.up * i * 0.1f;
 
                     GameObject bullet = Instantiate(bulletPrefab, spawnPositionOffset, bulletSpawn.transform.rotation * Quaternion.Euler(Random.insideUnitSphere));
-                    bullet.GetComponent<bullet>().playaFired = playaNumber;
+                    bullet.GetComponent<bullet>().playaFired = transform.parent.transform.parent.transform.parent.gameObject;
                     bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget, transform.parent.transform.parent.transform.parent.gameObject);
                 }
             }
             else
             {
                 GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-                bullet.GetComponent<bullet>().playaFired = playaNumber;
+                bullet.GetComponent<bullet>().playaFired = transform.parent.transform.parent.transform.parent.gameObject;
                 bullet.GetComponent<bullet>().shoot(bulletSpawn, bulletSpeed, transform.parent.transform.parent.GetComponent<arm>().currentTarget, transform.parent.transform.parent.transform.parent.gameObject);
             }
 

@@ -7,7 +7,7 @@ public class bullet : MonoBehaviour
 {
 
     public float bulletLifetime = 5.0f;
-    public int playaFired;
+    public GameObject playaFired;
     public float damage = 7.5f;
     private bool uselessAhh = false;
     public bool missile = false;
@@ -24,6 +24,7 @@ public class bullet : MonoBehaviour
     // if you get hit it turns you into paul lmao
     public bool paul;
     public GameObject hitMarker;
+    public bool swappy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,11 +50,17 @@ public class bullet : MonoBehaviour
         if (collision.gameObject.tag == "Player" && !uselessAhh)
         {
             playa player = collision.gameObject.GetComponent<playa>();
-            player.ouch(damage);
             Instantiate(player.bloodEffect, transform.position, transform.rotation, collision.gameObject.transform);
             GameObject hitshit = Instantiate(hitMarker, transform.position, transform.rotation, collision.gameObject.transform);
             Destroy(hitshit, 0.1f);
 
+            if (swappy)
+            {
+                Vector3 enemyPos = player.transform.position;
+                player.transform.position = playaFired.transform.position;
+                playaFired.transform.position = enemyPos;
+                return;
+            }
             if (missile)
             {
                 kaboom();
@@ -68,6 +75,7 @@ public class bullet : MonoBehaviour
                 player.paul(5f); // become paul for 5 seconds, try not to kys :)
                 // Instantiate(player.paulEffect, transform.position, transform.rotation, collision.gameObject.transform);
             }
+            player.ouch(damage);
             uselessAhh = true;
         }
     }
@@ -100,6 +108,20 @@ public class bullet : MonoBehaviour
         if (particleThing)
         {
             Instantiate(particleThing, transform.position, transform.rotation);
+        }
+
+        if (GetComponent<AudioSource>())
+        {
+            // Create a temporary GameObject for the sound
+            GameObject soundGameObject = new GameObject("TempAudio");
+            AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+
+            // Set the audio clip and play it
+            audioSource.clip = GetComponent<AudioSource>().clip;
+            audioSource.Play();
+
+            // Destroy the sound GameObject after the clip finishes
+            Destroy(soundGameObject, GetComponent<AudioSource>().clip.length);
         }
 
         // Find all objects within the explosion radius

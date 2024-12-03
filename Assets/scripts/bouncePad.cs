@@ -13,9 +13,11 @@ public class bouncePad : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         Rigidbody rb = collider.gameObject.GetComponent<Rigidbody>();
-        if (rb)
+        if (rb && collider.gameObject.name != "arm")
         {
-            rb.velocity = new Vector3(rb.velocity.x, -rb.velocity.y * 2, rb.velocity.z);
+            Debug.Log("BRAZ " + collider.gameObject.name);
+            rb.velocity = new Vector3(rb.velocity.x * 2, -rb.velocity.y * 2, rb.velocity.z);
+            GetComponent<AudioSource>().Play();
         }
     }
 
