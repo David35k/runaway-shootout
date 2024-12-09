@@ -266,6 +266,30 @@ public class playa : MonoBehaviour
                 return;
             }
         }
+
+        // PLAYER 3
+        if (playaNumber == 3)
+        {
+            if (Input.GetKeyUp(KeyCode.Z) || Input.GetKeyUp(KeyCode.X))
+            {
+                audioSource.PlayOneShot(jumpSound);
+                rb.AddForce(transform.up * jumpForce);
+                lastJumpTime = Time.time;
+                return;
+            }
+        }
+
+        // PLAYER 4
+        if (playaNumber == 4)
+        {
+            if (Input.GetKeyUp(KeyCode.B) || Input.GetKeyUp(KeyCode.N))
+            {
+                audioSource.PlayOneShot(jumpSound);
+                rb.AddForce(transform.up * jumpForce);
+                lastJumpTime = Time.time;
+                return;
+            }
+        }
     }
 
     void handleInput(float zrot)
@@ -321,6 +345,70 @@ public class playa : MonoBehaviour
         }
 
         if (Input.GetKey(KeyCode.I) && playaNumber == 2)
+        {
+            if (grounded && (zrot > 270 || zrot < 60))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (zrot < 270 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
+            }
+        }
+        // PLAYER 3
+        if (Input.GetKey(KeyCode.X) && playaNumber == 3)
+        {
+            if (grounded && (zrot > 300 || zrot < 90))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (zrot < 300 || zrot > 90)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
+            }
+        }
+
+        if (Input.GetKey(KeyCode.Z) && playaNumber == 3)
+        {
+            if (grounded && (zrot > 270 || zrot < 60))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque);
+            }
+            else if (zrot < 270 || zrot > 60)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
+            }
+        }
+        // PLAYER 4
+        if (Input.GetKey(KeyCode.N) && playaNumber == 4)
+        {
+            if (grounded && (zrot > 300 || zrot < 90))
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (!grounded)
+            {
+                rb.AddTorque(Vector3.forward * rotationTorque * -1);
+            }
+            else if (zrot < 300 || zrot > 90)
+            {
+                rb.angularVelocity = Vector3.zero; // Reset angular velocity
+            }
+        }
+
+        if (Input.GetKey(KeyCode.B) && playaNumber == 4)
         {
             if (grounded && (zrot > 270 || zrot < 60))
             {

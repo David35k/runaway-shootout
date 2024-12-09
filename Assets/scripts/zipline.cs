@@ -26,13 +26,13 @@ public class zipline : MonoBehaviour
             // bruh = player.GetComponent<Rigidbody>().constraints;
             player.GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezeRotationZ;
 
-            if (transform.position != right.transform.position - new Vector3(0f, 1.6f))
+            if (transform.position != right.transform.position - new Vector3(0f, 1f))
             {
                 isMoving = true;
             }
 
 
-            // player.transform.DOMove(right.transform.position - new Vector3(0f, 1.6f), 2f);
+            // player.transform.DOMove(right.transform.position - new Vector3(0f, 1f), 2f);
         }
     }
 
@@ -42,9 +42,9 @@ public class zipline : MonoBehaviour
         if (isMoving)
         {
             // Move the object toward the target position at a constant speed
-            player.transform.position = Vector3.MoveTowards(player.transform.position, right.transform.position - new Vector3(0f, 1.6f), 10f * Time.deltaTime);
+            player.transform.position = Vector3.MoveTowards(player.transform.position, right.transform.position - new Vector3(0f, 1f), 10f * Time.deltaTime);
 
-            if (Vector3.Distance(player.transform.position, right.transform.position - new Vector3(0f, 1.6f)) < 0.01f)
+            if (Vector3.Distance(player.transform.position, right.transform.position - new Vector3(0f, 1f)) < 0.01f)
             {
                 isMoving = false;
                 player.GetComponent<Rigidbody>().useGravity = true;

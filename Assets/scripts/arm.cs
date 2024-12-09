@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class arm : MonoBehaviour
 {
-
     public GameObject[] targets;
     public GameObject currentTarget;
     private bool tracking = false;
     private playa playerScript;
     public float swingForce = 100f;
     private Quaternion startRot;
+    private GameObject[] inRange = new GameObject[4];
+
     void Start()
     {
         playerScript = transform.parent.gameObject.GetComponent<playa>();
@@ -22,9 +21,10 @@ public class arm : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        if (targets.Contains(collider.gameObject))
+        if (targets.Contains(collider.gameObject) && !collider.gameObject.GetComponent<playa>().ded)
         {
-            currentTarget = collider.gameObject;
+            inRange[collider.gameObject.GetComponent<playa>().playaNumber - 1] = collider.gameObject;
+            UpdateNearestTarget();
             if (playerScript.schlong != null && !playerScript.schlong.GetComponent<gun>().meele)
             {
                 tracking = true;
@@ -34,22 +34,26 @@ public class arm : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject == currentTarget)
+        if (targets.Contains(collider.gameObject))
         {
-            currentTarget = null;
-            tracking = false;
+            inRange[collider.gameObject.GetComponent<playa>().playaNumber - 1] = null;
+            UpdateNearestTarget();
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // make sure bro actually has a gun
+        // Ensure the player has a gun
         if (playerScript.schlong != null)
         {
             if (tracking && currentTarget != null && playerScript.schlong.GetComponent<gun>().equipped)
             {
                 transform.LookAt(currentTarget.transform.position + new Vector3(0f, 1f));
+            }
+
+            if (currentTarget != null && currentTarget.GetComponent<playa>().ded)
+            {
+                UpdateNearestTarget();
             }
         }
     }
@@ -65,6 +69,33 @@ public class arm : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         GetComponent<Rigidbody>().MoveRotation(startRot);
-        // transform.rotation = startRot;
+    }
+
+    // Method to update the nearest target
+    private void UpdateNearestTarget()
+    {
+        float closestDistance = float.MaxValue;
+        GameObject nearestTarget = null;
+
+        foreach (GameObject target in inRange)
+        {
+            if (target != null && !target.GetComponent<playa>().ded)
+            {
+                float distance = Vector3.Distance(transform.position, target.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    nearestTarget = target;
+                }
+            }
+        }
+
+        currentTarget = nearestTarget;
+
+        // Stop tracking if no targets are left
+        if (currentTarget == null)
+        {
+            tracking = false;
+        }
     }
 }

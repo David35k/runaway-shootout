@@ -104,6 +104,14 @@ public class gun : MonoBehaviour
                 {
                     StartCoroutine(delayShoot());
                 }
+                if (Input.GetKey(KeyCode.C) && equipped && playaNumber == 3 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
+                if (Input.GetKey(KeyCode.M) && equipped && playaNumber == 4 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
             }
             else
             {
@@ -112,6 +120,14 @@ public class gun : MonoBehaviour
                     StartCoroutine(delayShoot());
                 }
                 if (Input.GetKeyDown(KeyCode.P) && equipped && playaNumber == 2 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
+                if (Input.GetKeyDown(KeyCode.C) && equipped && playaNumber == 3 && Time.time > nextFire)
+                {
+                    StartCoroutine(delayShoot());
+                }
+                if (Input.GetKeyDown(KeyCode.M) && equipped && playaNumber == 4 && Time.time > nextFire)
                 {
                     StartCoroutine(delayShoot());
                 }
