@@ -320,6 +320,7 @@ MonoBehaviour:
   blud: {fileID: 0}
   shootDelay: 1
   shake: 1
+  throwSound: {fileID: 8300000, guid: d9f7280ef37ff464e92f089d1c98306c, type: 3}
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

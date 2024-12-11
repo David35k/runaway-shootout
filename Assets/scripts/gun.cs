@@ -32,7 +32,7 @@ public class gun : MonoBehaviour
     public float shootDelay = 0f;
     private bool waiting = false;
     public bool shake = false;
-
+    public AudioClip throwSound;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -146,6 +146,7 @@ public class gun : MonoBehaviour
     // throw is a taken keyword bruh
     public void yeet()
     {
+        GetComponent<AudioSource>().PlayOneShot(throwSound);
         transform.parent = null;
         rb.isKinematic = false;
         rb.AddForce(transform.right * throwForce + transform.up * throwForce / 2.8f, ForceMode.Impulse);

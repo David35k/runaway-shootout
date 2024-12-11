@@ -9,7 +9,6 @@ public class zipline : MonoBehaviour
     public GameObject right;
     private bool isMoving = false;
     GameObject player;
-    RigidbodyConstraints bruh;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +30,7 @@ public class zipline : MonoBehaviour
                 isMoving = true;
             }
 
-
-            // player.transform.DOMove(right.transform.position - new Vector3(0f, 1f), 2f);
+            GetComponent<AudioSource>().Play();
         }
     }
 
@@ -46,6 +44,7 @@ public class zipline : MonoBehaviour
 
             if (Vector3.Distance(player.transform.position, right.transform.position - new Vector3(0f, 1f)) < 0.01f)
             {
+                GetComponent<AudioSource>().Stop();
                 isMoving = false;
                 player.GetComponent<Rigidbody>().useGravity = true;
                 player.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezeRotationZ;

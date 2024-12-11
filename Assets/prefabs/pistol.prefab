@@ -102,10 +102,7 @@ MonoBehaviour:
   blud: {fileID: 0}
   shootDelay: 0
   shake: 0
-  shootSounds:
-  - {fileID: 8300000, guid: 3ea6dd201e360bd4d8d6f359e4fd8f0b, type: 3}
-  - {fileID: 8300000, guid: a505b259f04272044842482838b8deb5, type: 3}
-  - {fileID: 8300000, guid: 8caae0d272409bb4d9417fb3d9bb9e32, type: 3}
+  throwSound: {fileID: 8300000, guid: d9f7280ef37ff464e92f089d1c98306c, type: 3}
 --- !u!54 &-6665925078764790551
 Rigidbody:
   m_ObjectHideFlags: 0

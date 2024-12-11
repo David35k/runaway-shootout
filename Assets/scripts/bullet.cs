@@ -56,6 +56,20 @@ public class bullet : MonoBehaviour
 
             if (swappy)
             {
+                if (GetComponent<AudioSource>())
+                {
+                    // Create a temporary GameObject for the sound
+                    GameObject soundGameObject = new GameObject("TempAudio");
+                    AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+
+                    // Set the audio clip and play it
+                    audioSource.clip = GetComponent<AudioSource>().clip;
+                    audioSource.Play();
+
+                    // Destroy the sound GameObject after the clip finishes
+                    Destroy(soundGameObject, GetComponent<AudioSource>().clip.length);
+                }
+
                 Vector3 enemyPos = player.transform.position;
                 player.transform.position = playaFired.transform.position;
                 playaFired.transform.position = enemyPos;
